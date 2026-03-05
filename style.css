@@ -1,0 +1,729 @@
+/* ===== Global Reset & Base Styles ===== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  background:
+    radial-gradient(circle at 25% 30%, rgba(0, 157, 255, 0.25), transparent 40%),
+    radial-gradient(circle at 75% 70%, rgba(0, 255, 200, 0.15), transparent 50%),
+    #0b0f1a;
+  color: #ffffff;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+
+/* ===== Typography ===== */
+
+h1 {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 1.4rem;
+  margin-bottom: 15px;
+}
+
+p {
+  color: #94a3b8;
+  font-size: 1rem;
+}
+
+
+/* ===== Layout Utilities ===== */
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+section,
+.section {
+  padding: 100px 0;
+  position: relative;
+}
+
+/* ================= SECTION HEADERS ================= */
+
+.section-header {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 60px auto;
+}
+
+.section-header h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.section-header p {
+  margin-top: 15px;
+  font-size: 1.05rem;
+  opacity: 0.75;
+}
+
+.section-header h2::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: #00d4ff;
+  margin: 15px auto 0;
+  border-radius: 3px;
+}
+
+/* Optional subtle background variation for sections */
+.section.alt-bg {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(4px);
+}
+
+/* Decorative divider line between sections */
+.section::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  width: 80%;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+}
+
+/* Grid helpers */
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+
+/* ===== Navbar ===== */
+
+.navbar {
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(10px);
+  padding: 20px 0;
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+}
+
+.navbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar ul {
+  display: flex;
+  list-style: none;
+}
+
+.navbar li {
+  margin-left: 20px;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: #cbd5e1;
+  transition: 0.3s ease;
+}
+
+.navbar a:hover,
+.navbar a.active {
+  color: #38bdf8;
+}
+
+
+/* ===== Hero Section ===== */
+
+.hero {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 10%;
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(circle at 30% 30%, #1f2a44, #0b0f1a 70%);
+}
+
+.hero {
+  position: relative;
+}
+
+.hero::before,
+.hero::after {
+  z-index: 0;
+  pointer-events: none;   /* IMPORTANT */
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+/* Soft animated glow effect */
+.hero::before {
+  content: "";
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: #00f5ff;
+  filter: blur(180px);
+  opacity: 0.15;
+  animation: float 6s ease-in-out infinite alternate;
+}
+
+/* Secondary background glow */
+.hero::after {
+  content: "";
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: rgba(56, 189, 248, 0.08);
+  border-radius: 50%;
+  top: -200px;
+  right: -200px;
+  filter: blur(100px);
+}
+
+@keyframes float {
+  from { transform: translateY(-30px); }
+  to { transform: translateY(30px); }
+}
+
+
+/* ===== Trust Strip ===== */
+
+.trust-strip {
+  background: rgba(0, 157, 255, 0.05);
+  padding: 40px 0;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+
+/* ===== Cards ===== */
+
+.card,
+.project-card {
+  backdrop-filter: blur(14px);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 30px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s ease;
+}
+
+.card:hover,
+.project-card:hover {
+  transform: translateY(-8px);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+
+/* ===== Metrics Section ===== */
+
+.metrics-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.metrics .container {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  gap: 40px;
+}
+
+.metric {
+  flex: 1;
+}
+
+.metric h2 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #00d4ff;
+}
+
+.metric p {
+  margin-top: 10px;
+  font-size: 0.95rem;
+  opacity: 0.8;
+}
+
+.metric:not(:last-child) {
+  border-right: 1px solid rgba(255,255,255,0.1);
+  padding-right: 40px;
+}
+/* ===== Buttons ===== */
+
+.btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 28px;
+  background: #38bdf8;
+  color: #0f172a;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background: #0ea5e9;
+  transform: translateY(-3px);
+}
+
+/* Rounded primary CTA button */
+.cta {
+  background: #00f5ff;
+  border: none;
+  padding: 14px 28px;
+  font-size: 16px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cta:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 245, 255, 0.4);
+}
+
+
+/* ===== CTA Highlight Section ===== */
+
+.cta-section {
+  padding: 100px 0;
+  text-align: center;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 157, 255, 0.1),
+    rgba(0, 255, 200, 0.08)
+  );
+}
+
+
+/* ===== Scroll Reveal Animation ===== */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: all 0.8s ease;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ================= FOOTER ================= */
+
+.footer {
+  background: linear-gradient(180deg, #060913 0%, #05070f 100%);
+  padding: 100px 0 0;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle ambient glow */
+.footer::before {
+  content: "";
+  position: absolute;
+  top: -150px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(0,212,255,0.08), transparent 70%);
+  pointer-events: none;
+}
+
+/* GRID */
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 70px;
+  padding-bottom: 70px;
+}
+
+/* HEADINGS */
+
+.footer-col h4 {
+  margin-bottom: 22px;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  opacity: 0.6;
+}
+
+/* BRAND BLOCK */
+
+.footer-logo {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+
+.footer-tagline {
+  max-width: 320px;
+  opacity: 0.65;
+  line-height: 1.7;
+  font-size: 0.95rem;
+}
+
+/* LINKS */
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 14px;
+}
+
+.footer-links a {
+  color: white;
+  text-decoration: none;
+  opacity: 0.65;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.footer-links a:hover {
+  opacity: 1;
+  color: #00d4ff;
+  transform: translateX(4px);
+}
+
+/* ================= SOCIAL ICONS ================= */
+
+.footer-social {
+  margin-top: 25px;
+  display: flex;
+  gap: 15px;
+}
+
+.footer-social a {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+  color: white;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  backdrop-filter: blur(6px);
+}
+
+.footer-social a:hover {
+  background: #00d4ff;
+  color: #0b0f1a;
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 10px 25px rgba(0,212,255,0.3);
+}
+
+/* ================= FOOTER BOTTOM ================= */
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 25px 0;
+}
+
+.footer-bottom-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  opacity: 0.55;
+}
+
+.footer-legal a {
+  margin-left: 25px;
+  color: white;
+  text-decoration: none;
+  opacity: 0.6;
+  transition: all 0.3s ease;
+}
+
+.footer-legal a:hover {
+  opacity: 1;
+  color: #00d4ff;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 1024px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding-top: 70px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .footer-bottom-content {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+
+  .footer-legal a {
+    margin-left: 15px;
+  }
+}
+
+/* ===== MODAL BASE ===== */
+.achievement-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: 40px;
+}
+
+.achievement-card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* ===== HORIZONTAL GRID ===== */
+.achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 cards in one row */
+  gap: 30px;
+}
+
+/* Responsive (tablet) */
+@media (max-width: 992px) {
+  .achievements-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Responsive (mobile) */
+@media (max-width: 576px) {
+  .achievements-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== MODAL CONTENT ===== */
+.modal-content {
+  background: #fff;
+  width: 100%;
+  max-width: 1100px;
+  max-height: 90vh;
+  overflow: auto;
+  border-radius: 12px;
+  padding: 30px;
+}
+
+/* ===== GRID LAYOUT ===== */
+.modal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  align-items: center;
+}
+
+/* ===== FIX IMAGE SIZE ===== */
+.modal-image img {
+  width: 100%;
+  max-height: 70vh;      /* Prevent oversized height */
+  object-fit: contain;   /* Keeps full image visible */
+  border-radius: 10px;
+}
+
+/* ===== CLOSE BUTTON ===== */
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 28px;
+  cursor: pointer;
+  color: #fff;
+}
+
+/* ===== MOBILE FIX ===== */
+@media (max-width: 768px) {
+  .modal-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-image img {
+    max-height: 50vh;
+  }
+}
+
+/* ===============================
+   PREMIUM HORIZONTAL SCROLL
+================================ */
+
+/* Section spacing */
+.achievements-section {
+  padding: 80px 0;
+  position: relative;
+}
+
+/* Scroll Container */
+.achievements-grid {
+  display: flex;
+  gap: 40px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  padding: 20px 10px 40px 10px;
+  position: relative;
+}
+
+/* Hide Scrollbar - All Browsers */
+.achievements-grid::-webkit-scrollbar {
+  display: none;
+}
+.achievements-grid {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Gradient Fade Edges (Premium Look) */
+.achievements-section::before,
+.achievements-section::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 120px;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Individual Card */
+.achievement-card {
+  min-width: 340px;
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+
+  border-radius: 18px;
+  overflow: hidden;
+  background: #ffffff;
+
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.06),
+    0 2px 8px rgba(0, 0, 0, 0.04);
+
+  transition: 
+    transform 0.4s cubic-bezier(.22,1,.36,1),
+    box-shadow 0.4s cubic-bezier(.22,1,.36,1);
+}
+
+/* Image */
+.achievement-card img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+/* Hover Effect */
+.achievement-card:hover {
+  transform: translateY(-12px);
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.12),
+    0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.achievement-card:hover img {
+  transform: scale(1.05);
+}
+
+/* Overlay */
+.achievement-overlay {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 20px;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+/* Make sure card is relative for overlay */
+.achievement-card {
+  position: relative;
+}
+
+/* Smooth Touch Scrolling */
+.achievements-grid {
+  -webkit-overflow-scrolling: touch;
+}
+
+.logo img {
+  height: 50px;       /* Adjust size here */
+  width: auto;
+  display: block;
+}
+
+.navbar .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
