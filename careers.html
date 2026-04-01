@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Careers — PathVision Innovations</title>
+
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <style>
+        /* ── RESET & BASE ── */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #000000;
+            --surface: #0A0A0A;
+            --card: #141414;
+            --border: #2A2A2A;
+            --gold: #D4AF37;
+            --gold-light: #F5D77A;
+            --white: #FFFFFF;
+            --muted: #A0A0A0;
+            --font-head: 'Bebas Neue', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        html,
+        body {
+            width: 100%;
+            max-width: 100vw;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--white);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            position: relative;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        /* ── SCROLLBAR ── */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 2px;
+        }
+
+        /* ── UTILITIES ── */
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .gold-text {
+            background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% auto;
+            animation: gold-shimmer 4s linear infinite;
+        }
+
+        @keyframes gold-shimmer {
+            0% {
+                background-position: 0% center;
+            }
+
+            100% {
+                background-position: 200% center;
+            }
+        }
+
+        .eyebrow {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--gold);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .eyebrow::before {
+            content: '';
+            display: block;
+            width: 32px;
+            height: 1px;
+            background: var(--gold);
+        }
+
+        .eyebrow.centered {
+            justify-content: center;
+        }
+
+        .eyebrow.centered::before {
+            display: none;
+        }
+
+        .section-title {
+            font-family: var(--font-head);
+            font-size: clamp(36px, 5vw, 60px);
+            letter-spacing: 0.04em;
+            line-height: 1.05;
+            margin-bottom: 16px;
+        }
+
+        .section-subtitle {
+            color: var(--muted);
+            font-size: 17px;
+            max-width: 560px;
+            line-height: 1.7;
+        }
+
+        .section-header {
+            margin-bottom: 64px;
+        }
+
+        .section-header.centered {
+            text-align: center;
+        }
+
+        .section-header.centered .section-subtitle {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ── BUTTONS ── */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 28px;
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--gold);
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            background: var(--gold-light);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--white);
+            border: 1px solid var(--gold);
+        }
+
+        .btn-outline:hover {
+            background: var(--gold);
+            color: #000;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+            transform: translateY(-1px);
+        }
+
+        /* ── ANIMATIONS ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+            min-width: 0;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes fade-up {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ══════════════════════════════════════
+       NAVBAR & MOBILE MENU
+    ══════════════════════════════════════ */
+        #navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 0 24px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            transition: background 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease;
+            border-bottom: 1px solid transparent;
+        }
+
+        #navbar.scrolled {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom-color: var(--border);
+        }
+
+        .nav-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            line-height: 1;
+            position: relative;
+            z-index: 1001;
+        }
+
+        .nav-logo-img {
+            height: 100px;
+            width: auto;
+            padding: 10px 0;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav-links li {
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            transition: color 0.2s;
+        }
+
+        .nav-links>li>a:hover,
+        .nav-links>li>a.active {
+            color: var(--gold);
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown>a {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(15px);
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px 0;
+            min-width: 250px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            z-index: 1002;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 12px 24px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            color: var(--muted);
+            text-transform: uppercase;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .dropdown-menu a:hover,
+        .dropdown-menu a.active {
+            color: var(--gold);
+            background: rgba(212, 175, 55, 0.05);
+            padding-left: 28px;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            position: relative;
+            z-index: 1001;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 28px;
+            height: 20px;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            padding: 0;
+            z-index: 9999;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: #FFFFFF;
+            border-radius: 2px;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transform-origin: center;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+            background-color: var(--gold);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(10px);
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+            background-color: var(--gold);
+        }
+
+        #mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background: rgba(5, 5, 5, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            padding: 100px 40px 40px;
+            transition: right 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+            overflow-y: auto;
+        }
+
+        #mobile-menu.open {
+            right: 0;
+        }
+
+        .mobile-nav-list {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            width: 100%;
+        }
+
+        .mobile-nav-list a,
+        .mobile-nav-list .mobile-acc-btn {
+            font-family: var(--font-head);
+            font-size: 36px;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+            transition: color 0.2s;
+            text-decoration: none;
+            border: none;
+            background: none;
+            text-align: left;
+            width: 100%;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .mobile-nav-list a:hover,
+        .mobile-nav-list a.active,
+        .mobile-nav-list .mobile-acc-btn:hover {
+            color: var(--gold);
+        }
+
+        .mobile-dropdown-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding-left: 16px;
+            border-left: 2px solid var(--border);
+            margin-top: 8px;
+        }
+
+        .mobile-dropdown-content.expanded {
+            max-height: 250px;
+            margin-bottom: 12px;
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+
+        .mobile-dropdown-content a {
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #888;
+            transition: color 0.2s, transform 0.2s;
+        }
+
+        .mobile-dropdown-content a:hover,
+        .mobile-dropdown-content a.active {
+            color: var(--gold-light);
+            transform: translateX(4px);
+        }
+
+        .mobile-acc-icon {
+            font-size: 18px;
+            margin-left: 8px;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-acc-btn.open .mobile-acc-icon {
+            transform: rotate(180deg);
+            color: var(--gold);
+        }
+
+        /* ══════════════════════════════════════
+       HERO SECTION
+    ══════════════════════════════════════ */
+        .hero-careers {
+            padding: 180px 0 120px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hero-bg-grid {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background-image: linear-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(212, 175, 55, 0.05) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse 70% 80% at 50% 0%, black 20%, transparent 80%);
+            -webkit-mask-image: radial-gradient(ellipse 70% 80% at 50% 0%, black 20%, transparent 80%);
+        }
+
+        .hero-careers-inner {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-careers h1 {
+            font-family: var(--font-head);
+            font-size: clamp(52px, 8vw, 100px);
+            line-height: 0.95;
+            letter-spacing: 0.03em;
+            margin-bottom: 24px;
+            animation: fade-up 0.8s ease both;
+        }
+
+        .hero-careers p {
+            color: var(--muted);
+            font-size: 18px;
+            line-height: 1.75;
+            margin-bottom: 40px;
+            animation: fade-up 0.8s ease 0.15s both;
+        }
+
+        /* ══════════════════════════════════════
+       CULTURE & BENEFITS
+    ══════════════════════════════════════ */
+        .section-block {
+            padding: 120px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .surface-bg {
+            background: var(--surface);
+        }
+
+        .culture-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .culture-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px 24px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .culture-card:hover {
+            border-color: rgba(212, 175, 55, 0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Updated icon class for Phosphor integration */
+        .cc-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+            display: block;
+            color: var(--gold);
+        }
+
+        .cc-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 10px;
+        }
+
+        .cc-desc {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        /* ══════════════════════════════════════
+       OPEN ROLES (JOB BOARD)
+    ══════════════════════════════════════ */
+        .job-board-wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .job-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        /* 3D Interactive Card styling */
+        .job-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 40px 32px;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .job-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: var(--gold);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+            transform-origin: top;
+        }
+
+        .job-card:hover {
+            border-color: rgba(212, 175, 55, 0.3);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(212, 175, 55, 0.05);
+        }
+
+        .job-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .job-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            transform: translateZ(20px);
+        }
+
+        .job-tag {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 4px;
+        }
+
+        .tag-ft {
+            background: rgba(74, 222, 128, 0.1);
+            color: #4ade80;
+            border: 1px solid rgba(74, 222, 128, 0.2);
+        }
+
+        .tag-intern {
+            background: rgba(198, 120, 221, 0.1);
+            color: #c678dd;
+            border: 1px solid rgba(198, 120, 221, 0.2);
+        }
+
+        /* Updated job-loc class for Phosphor map-pin integration */
+        .job-loc {
+            font-size: 11px;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .job-loc i {
+            color: var(--gold);
+            font-size: 14px;
+        }
+
+        .job-title {
+            font-family: var(--font-head);
+            font-size: 28px;
+            letter-spacing: 0.04em;
+            color: var(--white);
+            margin-bottom: 12px;
+            transform: translateZ(30px);
+        }
+
+        .job-desc {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.6;
+            margin-bottom: 32px;
+            transform: translateZ(10px);
+            flex-grow: 1;
+        }
+
+        .apply-btn {
+            align-self: flex-start;
+            padding: 10px 20px;
+            font-size: 11px;
+            transform: translateZ(20px);
+        }
+
+        /* Special treatment for the Internship Card to hold the pills */
+        .intern-card {
+            grid-column: 1 / -1;
+        }
+
+        /* Span full width */
+
+        .intern-roles {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+            margin-bottom: 32px;
+            transform: translateZ(15px);
+        }
+
+        .role-pill {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 6px 12px;
+            border-radius: 100px;
+            font-size: 12px;
+            color: var(--muted);
+            transition: all 0.2s;
+        }
+
+        .job-card:hover .role-pill {
+            border-color: rgba(212, 175, 55, 0.3);
+            color: var(--white);
+        }
+
+        /* ══════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════ */
+        footer {
+            background: var(--surface);
+            padding: 72px 0 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 48px;
+            margin-bottom: 64px;
+        }
+
+        .footer-brand .brand {
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+        }
+
+        .footer-brand .sub {
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            color: var(--gold);
+            margin-top: 2px;
+            margin-bottom: 16px;
+        }
+
+        .footer-brand p {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.7;
+            max-width: 260px;
+            margin-bottom: 24px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-link {
+            width: 36px;
+            height: 36px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: var(--muted);
+            transition: all 0.2s;
+        }
+
+        .social-link:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .footer-col h4 {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul li a {
+            font-size: 13px;
+            color: var(--muted);
+            transition: color 0.2s;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--white);
+        }
+
+        .footer-contact p {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .footer-contact a {
+            color: var(--gold-light);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border);
+            padding: 24px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-bottom p {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        /* ══════════════════════════════════════
+       RESPONSIVE DESIGN 
+    ══════════════════════════════════════ */
+        @media (max-width: 1024px) {
+
+            .nav-links,
+            .nav-right .btn {
+                display: none !important;
+            }
+
+            .hamburger {
+                display: flex !important;
+            }
+
+            .culture-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .job-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-careers {
+                padding: 140px 0 80px;
+            }
+
+            .nav-logo-img {
+                height: 100px;
+            }
+
+            .culture-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .job-card {
+                padding: 32px 24px;
+            }
+
+            /* Disable 3D transforms on mobile to prevent overflow/glitches */
+            .job-card,
+            .job-meta,
+            .job-title,
+            .job-desc,
+            .apply-btn,
+            .intern-roles {
+                transform: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav id="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">
+                <img src="logo.png" alt="PathVision Logo" class="nav-logo-img" />
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="company.html">Company</a></li>
+                <li class="dropdown">
+                    <a>Solutions <span style="font-size: 9px; margin-left:2px;">▼</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="retrofittable.html">01 — Retrofittable Systems</a></li>
+                        <li><a href="oem.html">02 — OEM Integration</a></li>
+                        <li><a href="decarbonization.html">03 — Decarbonization Suite</a></li>
+                    </ul>
+                </li>
+                <li><a href="technology.html">Technology</a></li>
+                <li><a href="industries.html">Industries</a></li>
+                <li><a href="impact.html">Impact</a></li>
+                <li><a href="careers.html" class="active">Careers</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+
+            <div class="nav-right">
+                <a href="contact.html" class="btn btn-primary" style="padding:10px 20px;font-size:12px;">Request
+                    Demo</a>
+                <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div id="mobile-menu" role="dialog" aria-modal="true">
+        <div class="mobile-nav-list">
+            <a href="index.html">Home</a>
+            <a href="company.html">Company</a>
+
+            <div>
+                <button class="mobile-acc-btn" id="mobile-solutions-btn">
+                    Solutions <span class="mobile-acc-icon">▼</span>
+                </button>
+                <div class="mobile-dropdown-content" id="mobile-solutions-content">
+                    <a href="retrofittable.html">01 — Retrofittable</a>
+                    <a href="oem.html">02 — OEM Integration</a>
+                    <a href="decarbonization.html">03 — Decarbonization</a>
+                </div>
+            </div>
+
+            <a href="technology.html">Technology</a>
+            <a href="industries.html">Industries</a>
+            <a href="impact.html">Impact</a>
+            <a href="careers.html" class="active" style="color:var(--gold);">Careers</a>
+            <a href="contact.html">Contact</a>
+            <a href="contact.html" class="btn btn-primary"
+                style="margin-top:16px; width: 100%; justify-content:center;">Request Demo</a>
+        </div>
+    </div>
+
+    <main>
+        <section class="hero-careers">
+            <div class="hero-bg-grid"></div>
+            <div class="container">
+                <div class="hero-careers-inner">
+                    <div class="eyebrow centered">JOIN THE MISSION</div>
+                    <h1>WORK THAT <span class="gold-text">MATTERS</span></h1>
+                    <p>We're building intelligence for roads that 5 million drivers depend on daily. Small team, hard
+                        problems, zero bureaucracy. If you want to build technology that saves lives, you belong here.
+                    </p>
+                    <a href="#open-roles" class="btn btn-primary reveal" style="animation-delay: 0.3s;">View Open Roles
+                        ↓</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-block surface-bg">
+            <div class="container">
+                <div class="section-header centered reveal">
+                    <div class="eyebrow centered">PATHVISION CULTURE</div>
+                    <h2 class="section-title">Why Build <span class="gold-text">With Us</span></h2>
+                </div>
+
+                <div class="culture-grid">
+                    <div class="culture-card reveal">
+                        <i class="ph-fill ph-globe cc-icon"></i>
+                        <h3 class="cc-title">Real-World Impact</h3>
+                        <p class="cc-desc">Code shipped on Friday saves lives on Monday. We don't build toys; we solve
+                            fatal problems.</p>
+                    </div>
+                    <div class="culture-card reveal" style="transition-delay:0.1s">
+                        <i class="ph-fill ph-puzzle-piece cc-icon"></i>
+                        <h3 class="cc-title">Hard Problems</h3>
+                        <p class="cc-desc">Deploying edge AI in extreme weather, severe vibrations, and chaotic traffic
+                            requires elite engineering.</p>
+                    </div>
+                    <div class="culture-card reveal" style="transition-delay:0.2s">
+                        <i class="ph-fill ph-target cc-icon"></i>
+                        <h3 class="cc-title">Small & Focused</h3>
+                        <p class="cc-desc">No red tape. High autonomy. We hire exceptional talent and get out of their
+                            way.</p>
+                    </div>
+                    <div class="culture-card reveal" style="transition-delay:0.3s">
+                        <i class="ph-fill ph-gear cc-icon"></i>
+                        <h3 class="cc-title">Engineering First</h3>
+                        <p class="cc-desc">Founded by IIT/IISc alumni. We value robust architecture, clean code, and
+                            physical hardware performance.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="open-roles" class="section-block">
+            <div class="container">
+                <div class="section-header centered reveal">
+                    <div class="eyebrow centered">WE'RE HIRING</div>
+                    <h2 class="section-title">Open <span class="gold-text">Positions</span></h2>
+                    <p class="section-subtitle">Based in Bengaluru. Ready to make an impact?</p>
+                </div>
+
+                <div class="job-board-wrapper">
+                    <div class="job-grid">
+
+                        <div class="job-card tilt-target reveal">
+                            <div class="job-meta">
+                                <span class="job-tag tag-ft">Full-Time</span>
+                                <span class="job-loc"><i class="ph-fill ph-map-pin"></i> Bengaluru / On-site</span>
+                            </div>
+                            <h3 class="job-title">Applied AI Engineer</h3>
+                            <p class="job-desc">Design, train, and optimize custom computer vision models (YOLO
+                                variants) for real-time inference on edge NPUs. You will work directly with our massive
+                                dataset of Indian road scenarios.</p>
+                            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfPrgS8MZeJwVq90uy52V6tbq6Dl8GfzmRITHtBTyGWR5JJzg/viewform"
+                                target="_blank" class="btn btn-outline apply-btn">Apply Now →</a>
+                        </div>
+
+                        <div class="job-card tilt-target reveal" style="transition-delay:0.1s">
+                            <div class="job-meta">
+                                <span class="job-tag tag-ft">Full-Time</span>
+                                <span class="job-loc"><i class="ph-fill ph-map-pin"></i> Bengaluru / On-site</span>
+                            </div>
+                            <h3 class="job-title">AI Systems Engineer</h3>
+                            <p class="job-desc">Bridge the gap between pure AI and physical hardware. You will optimize
+                                inference pipelines using TensorRT/ONNX and handle the complex logic of multi-camera
+                                synchronization.</p>
+                            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfPrgS8MZeJwVq90uy52V6tbq6Dl8GfzmRITHtBTyGWR5JJzg/viewform"
+                                target="_blank" class="btn btn-outline apply-btn">Apply Now →</a>
+                        </div>
+
+                        <div class="job-card tilt-target reveal">
+                            <div class="job-meta">
+                                <span class="job-tag tag-ft">Full-Time</span>
+                                <span class="job-loc"><i class="ph-fill ph-map-pin"></i> Bengaluru / On-site</span>
+                            </div>
+                            <h3 class="job-title">Mobile Systems Developer</h3>
+                            <p class="job-desc">Build the companion mobile applications used by fleet managers and
+                                drivers for real-time telematics, eco-scoring, and instant event notifications.
+                                Cross-platform experience preferred.</p>
+                            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfPrgS8MZeJwVq90uy52V6tbq6Dl8GfzmRITHtBTyGWR5JJzg/viewform"
+                                target="_blank" class="btn btn-outline apply-btn">Apply Now →</a>
+                        </div>
+
+                        <div class="job-card tilt-target reveal" style="transition-delay:0.1s">
+                            <div class="job-meta">
+                                <span class="job-tag tag-ft">Full-Time</span>
+                                <span class="job-loc"><i class="ph-fill ph-map-pin"></i> Bengaluru / On-site</span>
+                            </div>
+                            <h3 class="job-title">Embedded Engineer (PCB + IoT)</h3>
+                            <p class="job-desc">Design and test ruggedized hardware. You will integrate CAN Bus data,
+                                6-axis IMUs, and optical sensors into custom PCBs designed to survive severe vibration
+                                and heat.</p>
+                            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfPrgS8MZeJwVq90uy52V6tbq6Dl8GfzmRITHtBTyGWR5JJzg/viewform"
+                                target="_blank" class="btn btn-outline apply-btn">Apply Now →</a>
+                        </div>
+
+                        <div class="job-card tilt-target reveal">
+                            <div class="job-meta">
+                                <span class="job-tag tag-ft">Full-Time</span>
+                                <span class="job-loc"><i class="ph-fill ph-map-pin"></i> Bengaluru / Hybrid</span>
+                            </div>
+                            <h3 class="job-title">Operations & Partnerships</h3>
+                            <p class="job-desc">Work directly with fleet operators, OEMs, and transport agencies to
+                                oversee massive deployments. You will manage field trials, gather feedback, and ensure
+                                smooth integration at scale.</p>
+                            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfPrgS8MZeJwVq90uy52V6tbq6Dl8GfzmRITHtBTyGWR5JJzg/viewform"
+                                target="_blank" class="btn btn-outline apply-btn">Apply Now →</a>
+                        </div>
+
+                        <div class="job-card intern-card tilt-target reveal" style="transition-delay:0.1s">
+                            <div class="job-meta">
+                                <span class="job-tag tag-intern">Multiple Openings</span>
+                                <span class="job-loc"><i class="ph-fill ph-map-pin"></i> Bengaluru / On-site</span>
+                            </div>
+                            <h3 class="job-title">PathVision Internship Program</h3>
+                            <p class="job-desc" style="margin-bottom: 0;">We are looking for driven, fast-learning
+                                interns to join our engineering and operations pods. You won't be fetching coffee—you
+                                will be shipping code and building hardware. We are actively hiring for the following
+                                internship tracks:</p>
+
+                            <div class="intern-roles">
+                                <span class="role-pill">Research Intern</span>
+                                <span class="role-pill">Data Acquisition Intern</span>
+                                <span class="role-pill">Data Processing Intern</span>
+                                <span class="role-pill">Algorithm Development</span>
+                                <span class="role-pill">Validation Intern</span>
+                                <span class="role-pill">Mobile App Dev</span>
+                                <span class="role-pill">Cloud Technologies</span>
+                                <span class="role-pill">Information Security</span>
+                                <span class="role-pill">IoT Hardware Intern</span>
+                                <span class="role-pill">Circuit Design</span>
+                                <span class="role-pill">Project Management</span>
+                            </div>
+
+                            <a href="https://forms.gle/PDJb9xMN1eyPGiXF8" target="_blank"
+                                class="btn btn-outline apply-btn">Apply For Internship →</a>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="brand">PATHVISION</div>
+                    <div class="sub">INNOVATIONS PVT. LTD.</div>
+                    <p>AI-powered safety and intelligence for India's 5M+ heavy vehicles. Making every road journey
+                        safer.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Solutions</h4>
+                    <ul>
+                        <li><a href="retrofittable.html">Retrofittable Systems</a></li>
+                        <li><a href="oem.html">OEM Integration</a></li>
+                        <li><a href="decarbonization.html">Decarbonization Suite</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="company.html">About Us</a></li>
+                        <li><a href="technology.html">Technology</a></li>
+                        <li><a href="industries.html">Industries</a></li>
+                        <li><a href="impact.html">Impact</a></li>
+                        <li><a href="careers.html" style="color:var(--white);">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col footer-contact">
+                    <h4>Contact</h4>
+                    <p style="display:flex; gap:8px; align-items:center;">
+                        <svg class="gold-svg" style="width:14px;height:14px;flex-shrink:0;" viewBox="0 0 24 24">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                            <polyline points="22,6 12,13 2,6" />
+                        </svg>
+                        <a href="mailto:office@pathvision.in">office@pathvision.in</a>
+                    </p>
+                    <p style="display:flex; gap:8px; align-items:center; margin-top:8px;">
+                        <svg class="gold-svg" style="width:14px;height:14px;flex-shrink:0;" viewBox="0 0 24 24">
+                            <path
+                                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                        </svg>
+                        +91 76720 76329
+                    </p>
+                    <p style="display:flex; gap:8px; align-items:flex-start; margin-top:8px; margin-bottom:20px;">
+                        <svg class="gold-svg" style="width:14px;height:14px;flex-shrink:0;margin-top:4px;"
+                            viewBox="0 0 24 24">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 0-18 0z" />
+                            <circle cx="12" cy="10" r="3" />
+                        </svg>
+                        <span>Prodattur, Andhra Pradesh</span>
+                    </p>
+                    <a href="contact.html" class="btn btn-outline" style="font-size:12px;padding:10px 20px;">Schedule a
+                        Demo</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 PathVision Innovations Pvt. Ltd. All rights reserved.</p>
+                <p>Made in India 🇮🇳</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 20);
+        }, { passive: true });
+
+        // Animated Mobile Menu & Hamburger Logic
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        let menuOpen = false;
+
+        function toggleMenu() {
+            menuOpen = !menuOpen;
+            hamburger.classList.toggle('active', menuOpen);
+            mobileMenu.classList.toggle('open', menuOpen);
+            document.body.style.overflow = menuOpen ? 'hidden' : '';
+        }
+
+        hamburger.addEventListener('click', toggleMenu);
+
+        mobileMenu.querySelectorAll('a:not(.mobile-acc-btn)').forEach(a => {
+            a.addEventListener('click', () => { if (menuOpen) toggleMenu(); });
+        });
+
+        // Mobile Accordion Logic
+        const solBtn = document.getElementById('mobile-solutions-btn');
+        const solContent = document.getElementById('mobile-solutions-content');
+
+        solBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            solBtn.classList.toggle('open');
+            solContent.classList.toggle('expanded');
+        });
+
+        // Scroll Reveal Animation Standard Elements
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        // 3D Card Hover Effect for Job Cards (Desktop Only)
+        document.querySelectorAll('.tilt-target').forEach(card => {
+            if (window.matchMedia("(min-width: 769px)").matches) {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+
+                    card.style.transform = `perspective(1000px) rotateX(${-(y / 35)}deg) rotateY(${x / 35}deg) scale3d(1.02, 1.02, 1.02)`;
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

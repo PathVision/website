@@ -1,0 +1,2353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>PathVision Innovations — Intelligent Mobility Systems</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+
+  <style>
+    /* ── RESET & BASE ── */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #000000;
+      --surface: #0A0A0A;
+      --card: #141414;
+      --border: #2A2A2A;
+      --gold: #D4AF37;
+      --gold-light: #F5D77A;
+      --white: #FFFFFF;
+      --muted: #A0A0A0;
+      --font-head: 'Bebas Neue', sans-serif;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    html,
+    body {
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      position: relative;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--gold);
+      border-radius: 2px;
+    }
+
+    /* ── UTILITIES ── */
+    .container {
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .gold-text {
+      background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      background-size: 200% auto;
+      animation: gold-shimmer 4s linear infinite;
+    }
+
+    @keyframes gold-shimmer {
+      0% {
+        background-position: 0% center;
+      }
+
+      100% {
+        background-position: 200% center;
+      }
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .eyebrow::before {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .eyebrow.centered {
+      justify-content: center;
+    }
+
+    .eyebrow.centered::before {
+      display: none;
+    }
+
+    .section-title {
+      font-family: var(--font-head);
+      font-size: clamp(36px, 5vw, 60px);
+      letter-spacing: 0.04em;
+      line-height: 1.05;
+      margin-bottom: 16px;
+    }
+
+    .section-subtitle {
+      color: var(--muted);
+      font-size: 17px;
+      max-width: 560px;
+      line-height: 1.7;
+    }
+
+    .section-header {
+      margin-bottom: 64px;
+    }
+
+    .section-header.centered {
+      text-align: center;
+    }
+
+    .section-header.centered .section-subtitle {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 28px;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: #000;
+    }
+
+    .btn-primary:hover {
+      background: var(--gold-light);
+      box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 1px solid var(--gold);
+    }
+
+    .btn-outline:hover {
+      background: var(--gold);
+      color: #000;
+      box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+      transform: translateY(-1px);
+    }
+
+    /* ── CARDS ── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      border-color: var(--gold);
+      box-shadow: 0 0 24px rgba(212, 175, 55, 0.12);
+    }
+
+    /* ── STRICTLY GOLD SVGS ── */
+    .gold-svg {
+      width: 100%;
+      height: 100%;
+      stroke: var(--gold);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* ── ANIMATIONS ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+      min-width: 0;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes fade-up {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    @keyframes dot-blink {
+
+      0%,
+      100% {
+        opacity: 1;
+        box-shadow: 0 0 6px var(--gold);
+      }
+
+      50% {
+        opacity: 0.2;
+        box-shadow: none;
+      }
+    }
+
+    @keyframes hud-pulse {
+
+      0%,
+      100% {
+        opacity: 0.7;
+      }
+
+      50% {
+        opacity: 1;
+      }
+    }
+
+    /* ══════════════════════════════════════
+       NAVBAR & MOBILE MENU
+    ══════════════════════════════════════ */
+    #navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 0 24px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      transition: background 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease;
+      border-bottom: 1px solid transparent;
+    }
+
+    #navbar.scrolled {
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom-color: var(--border);
+    }
+
+    .nav-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      line-height: 1;
+      position: relative;
+      z-index: 1001;
+    }
+
+    .nav-logo-img {
+      height: 100px;
+      width: auto;
+      padding: 10px 0;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .nav-links li {
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+
+    .nav-links>li>a:hover,
+    .nav-links>li>a.active {
+      color: var(--gold);
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown>a {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(15px);
+      background: rgba(10, 10, 10, 0.98);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 0;
+      min-width: 250px;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+      display: flex;
+      flex-direction: column;
+      z-index: 1002;
+    }
+
+    .dropdown:hover .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .dropdown-menu a {
+      display: block;
+      padding: 12px 24px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      text-transform: uppercase;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .dropdown-menu a:hover,
+    .dropdown-menu a.active {
+      color: var(--gold);
+      background: rgba(212, 175, 55, 0.05);
+      padding-left: 28px;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      position: relative;
+      z-index: 1001;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 28px;
+      height: 20px;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      padding: 0;
+      z-index: 9999;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background-color: #FFFFFF;
+      border-radius: 2px;
+      transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      transform-origin: center;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: translateY(9px) rotate(45deg);
+      background-color: var(--gold);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+      transform: translateX(10px);
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: translateY(-9px) rotate(-45deg);
+      background-color: var(--gold);
+    }
+
+    #mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 100%;
+      height: 100vh;
+      background: rgba(5, 5, 5, 0.98);
+      backdrop-filter: blur(20px);
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      padding: 100px 40px 40px;
+      transition: right 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+      overflow-y: auto;
+    }
+
+    #mobile-menu.open {
+      right: 0;
+    }
+
+    .mobile-nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      width: 100%;
+    }
+
+    .mobile-nav-list a,
+    .mobile-nav-list .mobile-acc-btn {
+      font-family: var(--font-head);
+      font-size: 36px;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      transition: color 0.2s;
+      text-decoration: none;
+      border: none;
+      background: none;
+      text-align: left;
+      width: 100%;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .mobile-nav-list a:hover,
+    .mobile-nav-list a.active,
+    .mobile-nav-list .mobile-acc-btn:hover {
+      color: var(--gold);
+    }
+
+    .mobile-dropdown-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding-left: 16px;
+      border-left: 2px solid var(--border);
+      margin-top: 8px;
+    }
+
+    .mobile-dropdown-content.expanded {
+      max-height: 250px;
+      margin-bottom: 12px;
+      border-color: rgba(212, 175, 55, 0.3);
+    }
+
+    .mobile-dropdown-content a {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #888;
+      transition: color 0.2s, transform 0.2s;
+    }
+
+    /* ══════════════════════════════════════
+       HERO (RADAR DASHBOARD)
+    ══════════════════════════════════════ */
+    #hero {
+      position: relative;
+      padding: 140px 0 80px;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      width: 100%;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.75) 60%, #000 100%), linear-gradient(135deg, #0a0a0a 0%, #111 50%, #0a0a0a 100%);
+      z-index: 0;
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(rgba(212, 175, 55, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(212, 175, 55, 0.06) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 40%, transparent 100%);
+      z-index: 1;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 64px;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+      width: 100%;
+    }
+
+    .hero-content {
+      position: relative;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      background: rgba(212, 175, 55, 0.06);
+      padding: 8px 16px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      color: var(--gold-light);
+      margin-bottom: 24px;
+      animation: fade-up 0.8s ease forwards;
+    }
+
+    .hero-badge .dot {
+      width: 7px;
+      height: 7px;
+      background: var(--gold);
+      border-radius: 50%;
+      animation: dot-blink 1.5s ease infinite;
+      box-shadow: 0 0 6px var(--gold);
+    }
+
+    .hero-headline {
+      font-family: var(--font-head);
+      font-size: clamp(52px, 8vw, 110px);
+      line-height: 0.95;
+      letter-spacing: 0.03em;
+      margin-bottom: 24px;
+      animation: fade-up 0.8s ease 0.15s both;
+    }
+
+    .hero-headline .line1 {
+      display: block;
+      color: var(--white);
+    }
+
+    .hero-headline .line2 {
+      display: block;
+    }
+
+    .hero-sub {
+      font-size: 17px;
+      color: var(--muted);
+      max-width: 520px;
+      line-height: 1.75;
+      margin-bottom: 40px;
+      animation: fade-up 0.8s ease 0.3s both;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      animation: fade-up 0.8s ease 0.45s both;
+    }
+
+    /* Interactive Radar Dashboard */
+    .hero-visual-container {
+      position: relative;
+      perspective: 1000px;
+      animation: fade-up 0.8s ease 0.5s both;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .interactive-dashboard {
+      position: relative;
+      width: 100%;
+      max-width: 480px;
+      aspect-ratio: 1;
+      transform-style: preserve-3d;
+      transition: transform 0.1s ease-out;
+    }
+
+    .radar-circle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+      height: 80%;
+      border-radius: 50%;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.05) 0%, transparent 60%);
+      box-shadow: 0 0 40px rgba(212, 175, 55, 0.1) inset;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .radar-circle::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 50%;
+      height: 50%;
+      border-radius: 50%;
+      border: 1px dashed rgba(212, 175, 55, 0.2);
+    }
+
+    .radar-circle::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 2px;
+      height: 100%;
+      background: rgba(212, 175, 55, 0.1);
+    }
+
+    .radar-crosshair {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: 2px;
+      background: rgba(212, 175, 55, 0.1);
+    }
+
+    .radar-sweep {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 50%;
+      height: 50%;
+      background: conic-gradient(from 0deg, rgba(212, 175, 55, 0.4) 0deg, transparent 60deg);
+      transform-origin: 0% 0%;
+      animation: sweep 4s linear infinite;
+      z-index: 2;
+    }
+
+    @keyframes sweep {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Radar Blips - Gold */
+    .radar-blip {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--gold);
+      z-index: 3;
+      animation: blip 4s infinite;
+    }
+
+    @keyframes blip {
+
+      0%,
+      10% {
+        opacity: 1;
+        transform: scale(1.5);
+      }
+
+      20%,
+      100% {
+        opacity: 0.3;
+        transform: scale(1);
+      }
+    }
+
+    .blip1 {
+      top: 30%;
+      left: 60%;
+      animation-delay: 0.5s;
+    }
+
+    .blip2 {
+      top: 70%;
+      left: 40%;
+      animation-delay: 2.5s;
+    }
+
+    .blip3 {
+      top: 45%;
+      left: 25%;
+      animation-delay: 3.2s;
+    }
+
+    /* Floating HUD cards */
+    .hud-card {
+      position: absolute;
+      background: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      z-index: 4;
+      transform: translateZ(30px);
+      animation: float 4s ease-in-out infinite;
+      white-space: nowrap;
+    }
+
+    .hud-card .hud-value {
+      font-family: var(--font-head);
+      font-size: 24px;
+      color: var(--gold);
+      display: block;
+      letter-spacing: 0.05em;
+      line-height: 1;
+      margin-bottom: 2px;
+    }
+
+    .hud-1 {
+      top: 5%;
+      right: 5%;
+      animation-delay: 0s;
+    }
+
+    .hud-2 {
+      bottom: 10%;
+      left: 5%;
+      animation-delay: 1.5s;
+    }
+
+    .hud-3 {
+      top: 60%;
+      right: 5%;
+      animation-delay: 0.7s;
+    }
+
+    .hero-hud-bottom {
+      position: absolute;
+      bottom: 40px;
+      left: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      animation: hud-pulse 3s ease infinite;
+      z-index: 3;
+    }
+
+    .hero-hud-bottom .hud-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--gold);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--gold);
+      animation: dot-blink 1.2s ease infinite;
+    }
+
+    /* ══════════════════════════════════════
+       IMAS PLATFORM SECTION
+    ══════════════════════════════════════ */
+    .section-block {
+      padding: 120px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .surface-bg {
+      background: var(--surface);
+    }
+
+    .imas-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .imas-left p {
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    .imas-features {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .feature-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-row::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 3px;
+      height: 100%;
+      background: var(--gold);
+      transform: scaleY(0);
+      transition: transform 0.3s;
+    }
+
+    .feature-row:hover {
+      border-color: rgba(212, 175, 55, 0.4);
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.08);
+      transform: translateX(5px);
+    }
+
+    .feature-row:hover::before {
+      transform: scaleY(1);
+    }
+
+    .feature-row .icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      background: rgba(212, 175, 55, 0.1);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: transform 0.3s;
+    }
+
+    .feature-row .icon svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .feature-row:hover .icon {
+      transform: scale(1.1);
+      background: rgba(212, 175, 55, 0.2);
+    }
+
+    .feature-row .feat-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .feature-row .feat-desc {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* ══════════════════════════════════════
+       SOLUTIONS GRID
+    ══════════════════════════════════════ */
+    .solutions-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .solution-card {
+      padding: 36px 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .solution-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .solution-card:hover::before {
+      opacity: 1;
+    }
+
+    .solution-number {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      opacity: 0.6;
+      margin-bottom: 20px;
+    }
+
+    .solution-icon {
+      width: 56px;
+      height: 56px;
+      background: rgba(212, 175, 55, 0.1);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      transition: transform 0.3s;
+    }
+
+    .solution-card:hover .solution-icon {
+      transform: scale(1.1);
+      background: rgba(212, 175, 55, 0.2);
+    }
+
+    .solution-icon svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    .solution-card h3 {
+      font-family: var(--font-head);
+      font-size: 24px;
+      letter-spacing: 0.04em;
+      margin-bottom: 12px;
+    }
+
+    .solution-card p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .solution-bullets {
+      margin-bottom: 28px;
+    }
+
+    .solution-bullets li {
+      font-size: 13px;
+      color: var(--muted);
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .solution-bullets li::before {
+      content: '✦';
+      color: var(--gold);
+      font-size: 10px;
+      flex-shrink: 0;
+    }
+
+    .learn-more {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: gap 0.2s;
+    }
+
+    .learn-more:hover {
+      gap: 12px;
+    }
+
+    /* ══════════════════════════════════════
+       TECHNOLOGY GRID
+    ══════════════════════════════════════ */
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .tech-tile {
+      padding: 36px 24px;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .tech-tile:hover {
+      border-color: var(--gold);
+      box-shadow: 0 0 24px rgba(212, 175, 55, 0.1);
+      transform: translateY(-4px);
+    }
+
+    .tech-tile .tile-icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 20px;
+      display: block;
+      animation: float 4s ease infinite;
+    }
+
+    .tech-tile:nth-child(2) .tile-icon {
+      animation-delay: 0.5s;
+    }
+
+    .tech-tile:nth-child(3) .tile-icon {
+      animation-delay: 1s;
+    }
+
+    .tech-tile:nth-child(4) .tile-icon {
+      animation-delay: 1.5s;
+    }
+
+    .tech-tile h3 {
+      font-family: var(--font-head);
+      font-size: 20px;
+      letter-spacing: 0.05em;
+      margin-bottom: 10px;
+    }
+
+    .tech-tile p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ══════════════════════════════════════
+       INDUSTRIES GRID
+    ══════════════════════════════════════ */
+    .industries-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .industry-card {
+      padding: 40px 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .industry-card .ind-tag {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .industry-card h3 {
+      font-family: var(--font-head);
+      font-size: 26px;
+      letter-spacing: 0.04em;
+      margin-bottom: 14px;
+    }
+
+    .industry-card p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .industry-card .stat-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(212, 175, 55, 0.08);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      padding: 8px 14px;
+      border-radius: 100px;
+      font-size: 12px;
+      color: var(--gold-light);
+      font-weight: 500;
+    }
+
+    /* ══════════════════════════════════════
+       IMPACT STATS
+    ══════════════════════════════════════ */
+    .stats-container {
+      position: relative;
+    }
+
+    .stats-container::before {
+      content: '';
+      position: absolute;
+      top: -150px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      z-index: 2;
+    }
+
+    .stat-block {
+      background: var(--surface);
+      padding: 52px 40px;
+      text-align: center;
+      position: relative;
+      transition: background 0.3s;
+    }
+
+    .stat-block:hover {
+      background: var(--card);
+    }
+
+    .stat-number {
+      font-family: var(--font-head);
+      font-size: clamp(48px, 6vw, 72px);
+      line-height: 1;
+      letter-spacing: 0.02em;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ══════════════════════════════════════
+       COMPANY SECTION
+    ══════════════════════════════════════ */
+    .company-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .company-left p {
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    .company-facts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 40px;
+    }
+
+    .fact-chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 18px;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gold-light);
+      background: rgba(212, 175, 55, 0.05);
+      transition: all 0.2s;
+    }
+
+    .fact-chip:hover {
+      background: rgba(212, 175, 55, 0.12);
+      border-color: var(--gold);
+    }
+
+    .company-visual {
+      perspective: 1000px;
+    }
+
+    .company-card-big {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 48px 40px;
+      position: relative;
+      overflow: hidden;
+      transform-style: preserve-3d;
+      transition: transform 0.1s ease-out, box-shadow 0.3s ease;
+      box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.8);
+    }
+
+    .company-card-big::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .company-card-big .big-number {
+      font-family: var(--font-head);
+      font-size: 100px;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+      transform: translateZ(30px);
+      display: block;
+    }
+
+    .company-card-big .big-label {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 32px;
+      transform: translateZ(20px);
+      display: block;
+    }
+
+    .mini-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      transform: translateZ(40px);
+    }
+
+    .mini-stat {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 18px;
+    }
+
+    .mini-stat .val {
+      font-family: var(--font-head);
+      font-size: 28px;
+      color: var(--gold);
+      display: block;
+    }
+
+    .mini-stat .lbl {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+
+    /* ══════════════════════════════════════
+       CAREERS & FINAL CTA
+    ══════════════════════════════════════ */
+    .careers-card {
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.04) 0%, transparent 60%);
+      border-radius: 16px;
+      padding: 64px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .careers-card::before {
+      content: '"';
+      position: absolute;
+      top: -40px;
+      left: 40px;
+      font-family: var(--font-head);
+      font-size: 240px;
+      color: rgba(212, 175, 55, 0.04);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .careers-card h2 {
+      font-family: var(--font-head);
+      font-size: clamp(28px, 4vw, 48px);
+      letter-spacing: 0.04em;
+      margin-bottom: 16px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .careers-card p {
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 480px;
+      margin: 0 auto 36px;
+      line-height: 1.7;
+    }
+
+    #cta-final {
+      padding: 140px 0;
+      border-top: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    #cta-final .bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(212, 175, 55, 0.05) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    #cta-final .bg-radial {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(0, 0, 0, 0) 0%, #000 80%);
+    }
+
+    .cta-final-inner {
+      position: relative;
+      z-index: 2;
+    }
+
+    .cta-final-inner h2 {
+      font-family: var(--font-head);
+      font-size: clamp(40px, 6vw, 88px);
+      letter-spacing: 0.04em;
+      line-height: 1;
+      margin-bottom: 24px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-final-inner p {
+      color: var(--muted);
+      font-size: 17px;
+      max-width: 480px;
+      margin: 0 auto 48px;
+      line-height: 1.7;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ══════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════ */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 72px 0 0;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      gap: 48px;
+      margin-bottom: 64px;
+    }
+
+    .footer-brand .brand {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+    }
+
+    .footer-brand .sub {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      margin-top: 2px;
+      margin-bottom: 16px;
+    }
+
+    .footer-brand p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 260px;
+      margin-bottom: 24px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 12px;
+    }
+
+    .social-link {
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: var(--muted);
+      transition: all 0.2s;
+    }
+
+    .social-link:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .footer-col h4 {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 12px;
+    }
+
+    .footer-col ul li a {
+      font-size: 13px;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+
+    .footer-col ul li a:hover {
+      color: var(--white);
+    }
+
+    .footer-contact p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .footer-contact a {
+      color: var(--gold-light);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding: 24px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-bottom p {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* ══════════════════════════════════════
+       RESPONSIVE DESIGN
+    ══════════════════════════════════════ */
+    @media (max-width: 1024px) {
+
+      .nav-links,
+      .nav-right .btn {
+        display: none !important;
+      }
+
+      .hamburger {
+        display: flex !important;
+      }
+
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+        padding-top: 20px;
+      }
+
+      .hero-sub {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-buttons {
+        justify-content: center;
+      }
+
+      .hero-visual-container {
+        max-width: 320px;
+        margin: 0 auto;
+        margin-top: 20px;
+      }
+
+      .tech-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+
+      .imas-inner,
+      .company-inner {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .solutions-grid,
+      .industries-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .careers-card {
+        padding: 40px 24px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+      }
+
+      .hud-card {
+        transform: translateZ(0) !important;
+      }
+
+      .hud-1 {
+        right: 5%;
+        top: 5%;
+      }
+
+      .hud-2 {
+        left: 5%;
+        bottom: 5%;
+      }
+
+      .hud-3 {
+        right: 5%;
+        top: 50%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav-logo-img {
+        height: 100px;
+      }
+
+      .hero-headline {
+        font-size: 48px;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .tech-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .hero-buttons .btn {
+        width: 100%;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .mini-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .hud-card {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <img src="logo.png" alt="PathVision Logo" class="nav-logo-img" />
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="company.html">Company</a></li>
+        <li class="dropdown">
+          <a>Solutions <span style="font-size: 9px; margin-left:2px;">▼</span></a>
+          <ul class="dropdown-menu">
+            <li><a href="retrofittable.html">01 — Retrofittable Systems</a></li>
+            <li><a href="oem.html">02 — OEM Integration</a></li>
+            <li><a href="decarbonization.html">03 — Decarbonization Suite</a></li>
+          </ul>
+        </li>
+        <li><a href="technology.html">Technology</a></li>
+        <li><a href="industries.html">Industries</a></li>
+        <li><a href="impact.html">Impact</a></li>
+        <li><a href="careers.html">Careers</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+
+      <div class="nav-right">
+        <a href="contact.html" class="btn btn-primary" style="padding:10px 20px;font-size:12px;">Request Demo</a>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div id="mobile-menu" role="dialog" aria-modal="true">
+    <div class="mobile-nav-list">
+      <a href="index.html" class="active" style="color:var(--gold);">Home</a>
+      <a href="company.html">Company</a>
+
+      <div>
+        <button class="mobile-acc-btn" id="mobile-solutions-btn">
+          Solutions <span class="mobile-acc-icon">▼</span>
+        </button>
+        <div class="mobile-dropdown-content" id="mobile-solutions-content">
+          <a href="retrofittable.html">01 — Retrofittable</a>
+          <a href="oem.html">02 — OEM Integration</a>
+          <a href="decarbonization.html">03 — Decarbonization</a>
+        </div>
+      </div>
+
+      <a href="technology.html">Technology</a>
+      <a href="industries.html">Industries</a>
+      <a href="impact.html">Impact</a>
+      <a href="careers.html">Careers</a>
+      <a href="contact.html">Contact</a>
+      <a href="contact.html" class="btn btn-primary"
+        style="margin-top:16px; width: 100%; justify-content:center;">Request Demo</a>
+    </div>
+  </div>
+
+  <main>
+    <section id="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-grid"></div>
+
+      <div class="container">
+        <div class="hero-inner">
+
+          <div class="hero-content">
+            <div class="hero-badge">
+              <span class="dot"></span>
+              AI-Powered Heavy Vehicle Intelligence
+            </div>
+
+            <h1 class="hero-headline">
+              <span class="line1">INTELLIGENT</span>
+              <span class="line2 gold-text">MOBILITY SYSTEMS</span>
+            </h1>
+
+            <p class="hero-sub">
+              PathVision IMAS delivers real-time AI safety, fuel efficiency, and fleet intelligence for India's 5M+
+              heavy vehicles — retrofittable in 3 days, zero downtime.
+            </p>
+
+            <div class="hero-buttons">
+              <a href="retrofittable.html" class="btn btn-primary">Explore Solutions →</a>
+              <a href="contact.html" class="btn btn-outline">Request Demo</a>
+            </div>
+          </div>
+
+          <div class="hero-visual-container">
+            <div class="interactive-dashboard" id="hero-dashboard">
+              <div class="radar-circle">
+                <div class="radar-crosshair"></div>
+                <div class="radar-crosshair" style="transform: translate(-50%, -50%) rotate(90deg);"></div>
+                <div class="radar-sweep"></div>
+                <div class="radar-blip blip1"></div>
+                <div class="radar-blip blip2"></div>
+                <div class="radar-blip blip3"></div>
+              </div>
+
+              <div class="hud-card hud-1">
+                <span class="hud-value">40%</span>
+                Accident Drop
+              </div>
+              <div class="hud-card hud-2">
+                <span class="hud-value">700+</span>
+                Active Vehicles
+              </div>
+              <div class="hud-card hud-3">
+                <span class="hud-value">99.7%</span>
+                System Uptime
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="hero-hud-bottom">
+        <span class="hud-dot"></span>
+        IMAS ONLINE — LIVE TELEMETRY
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="container">
+        <div class="imas-inner">
+          <div class="imas-left reveal">
+            <div class="eyebrow">THE PLATFORM</div>
+            <h2 class="section-title">Integrated Mobility<br><span class="gold-text">Assistance System</span></h2>
+            <p>IMAS is PathVision's flagship platform — a full-stack AI safety and intelligence layer designed
+              specifically for the unique demands of Indian roads, weather, and fleet operations.</p>
+            <p>From real-time collision warnings to predictive fuel analytics, IMAS integrates seamlessly into any
+              existing heavy vehicle within 3 days, with zero operational downtime.</p>
+            <div style="margin-top: 40px;">
+              <a href="retrofittable.html" class="btn btn-outline">Explore Solutions →</a>
+            </div>
+          </div>
+
+          <div class="imas-features reveal" style="transition-delay:0.15s">
+
+            <div class="feature-row">
+              <div class="icon">
+                <svg class="gold-svg" viewBox="0 0 24 24">
+                  <path
+                    d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z" />
+                  <path
+                    d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z" />
+                </svg>
+              </div>
+              <div class="feat-body">
+                <div class="feat-title">AI & Computer Vision</div>
+                <div class="feat-desc">YOLOv8 custom-trained on 3M+ Indian road images. 95%+ detection accuracy.</div>
+              </div>
+            </div>
+
+            <div class="feature-row">
+              <div class="icon">
+                <svg class="gold-svg" viewBox="0 0 24 24">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                </svg>
+              </div>
+              <div class="feat-body">
+                <div class="feat-title">Edge Computing</div>
+                <div class="feat-desc">On-vehicle ARM NPU inference. &lt;100ms latency. No internet dependency.</div>
+              </div>
+            </div>
+
+            <div class="feature-row">
+              <div class="icon">
+                <svg class="gold-svg" viewBox="0 0 24 24">
+                  <path d="M12 20a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" />
+                  <path d="M5 13a10 10 0 0 1 14 0" />
+                  <path d="M8.5 16.5a5 5 0 0 1 7 0" />
+                </svg>
+              </div>
+              <div class="feat-body">
+                <div class="feat-title">IoT Sensor Suite</div>
+                <div class="feat-desc">8-camera surround view, 6-axis IMU, dual-band GPS, ultrasonic radar.</div>
+              </div>
+            </div>
+
+            <div class="feature-row">
+              <div class="icon">
+                <svg class="gold-svg" viewBox="0 0 24 24">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                </svg>
+              </div>
+              <div class="feat-body">
+                <div class="feat-title">Secure Data Pipeline</div>
+                <div class="feat-desc">AES-256 encrypted telemetry at 10Hz. REST API + webhook integrations.</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block surface-bg">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="eyebrow">OUR SOLUTIONS</div>
+          <h2 class="section-title">Built for Every <span class="gold-text">Use Case</span></h2>
+          <p class="section-subtitle">Whether you're retrofitting an existing fleet, integrating at the OEM level, or
+            targeting net-zero emissions.</p>
+        </div>
+
+        <div class="solutions-grid">
+
+          <div class="solution-card card reveal" style="transition-delay:0.05s">
+            <div class="solution-number">SOLUTION 01</div>
+            <div class="solution-icon">
+              <svg class="gold-svg" viewBox="0 0 24 24">
+                <path
+                  d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+              </svg>
+            </div>
+            <h3>Retrofittable Systems</h3>
+            <p>Transform any existing heavy vehicle into an AI-enabled safety machine in just 3 days — no vehicle
+              downtime required.</p>
+            <ul class="solution-bullets">
+              <li>Lane departure warning</li>
+              <li>Driver fatigue detection</li>
+              <li>Blind spot alert system</li>
+            </ul>
+            <a href="retrofittable.html" class="learn-more">Learn More →</a>
+          </div>
+
+          <div class="solution-card card reveal" style="transition-delay:0.15s">
+            <div class="solution-number">SOLUTION 02</div>
+            <div class="solution-icon">
+              <svg class="gold-svg" viewBox="0 0 24 24">
+                <path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" />
+                <path d="M17 18h1" />
+                <path d="M12 18h1" />
+                <path d="M7 18h1" />
+              </svg>
+            </div>
+            <h3>OEM Integration</h3>
+            <p>Embed PathVision intelligence natively into new vehicles with our plug-in SDK, designed for rapid OEM
+              deployment cycles.</p>
+            <ul class="solution-bullets">
+              <li>Plug-in SDK for OEM platforms</li>
+              <li>CAN Bus integration</li>
+              <li>OTA model updates</li>
+            </ul>
+            <a href="oem.html" class="learn-more">Learn More →</a>
+          </div>
+
+          <div class="solution-card card reveal" style="transition-delay:0.25s">
+            <div class="solution-number">SOLUTION 03</div>
+            <div class="solution-icon">
+              <svg class="gold-svg" viewBox="0 0 24 24">
+                <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" />
+                <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
+              </svg>
+            </div>
+            <h3>Decarbonization Suite</h3>
+            <p>Cut fleet emissions and fuel costs with AI-driven behavioral analytics and real-time efficiency
+              monitoring.</p>
+            <ul class="solution-bullets">
+              <li>Driving behavior analysis</li>
+              <li>Fuel efficiency insights</li>
+              <li>Regulatory ESG reporting</li>
+            </ul>
+            <a href="decarbonization.html" class="learn-more">Learn More →</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="container">
+        <div class="section-header centered reveal">
+          <div class="eyebrow centered">TECHNOLOGY</div>
+          <h2 class="section-title">The Stack Behind the <span class="gold-text">Intelligence</span></h2>
+          <p class="section-subtitle">Every component purpose-built for Indian road conditions, extreme temperatures,
+            and real-world fleet demands.</p>
+        </div>
+
+        <div class="tech-grid">
+          <div class="tech-tile card reveal" style="transition-delay:0.05s">
+            <div class="tile-icon">
+              <svg class="gold-svg" viewBox="0 0 24 24">
+                <path
+                  d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z" />
+                <path
+                  d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z" />
+              </svg>
+            </div>
+            <h3>AI Vision</h3>
+            <p>YOLOv8 trained on 3M+ annotated Indian road images.</p>
+          </div>
+
+          <div class="tech-tile card reveal" style="transition-delay:0.12s">
+            <div class="tile-icon">
+              <svg class="gold-svg" viewBox="0 0 24 24">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+              </svg>
+            </div>
+            <h3>Edge Compute</h3>
+            <p>Offline capable ARM NPU processing. Rated -10°C to +70°C.</p>
+          </div>
+
+          <div class="tech-tile card reveal" style="transition-delay:0.19s">
+            <div class="tile-icon">
+              <svg class="gold-svg" viewBox="0 0 24 24">
+                <path d="M12 20a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" />
+                <path d="M5 13a10 10 0 0 1 14 0" />
+                <path d="M8.5 16.5a5 5 0 0 1 7 0" />
+              </svg>
+            </div>
+            <h3>IoT Sensors</h3>
+            <p>8-camera 360° view, ultrasonic radar, dual-band GPS, 6-axis IMU.</p>
+          </div>
+
+          <div class="tech-tile card reveal" style="transition-delay:0.26s">
+            <div class="tile-icon">
+              <svg class="gold-svg" viewBox="0 0 24 24">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+              </svg>
+            </div>
+            <h3>Data Pipeline</h3>
+            <p>Real-time 10Hz telemetry with AES-256 encryption.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block surface-bg">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="eyebrow">INDUSTRIES</div>
+          <h2 class="section-title">Who We <span class="gold-text">Serve</span></h2>
+          <p class="section-subtitle">From logistics giants to state transport boards and OEM manufacturers.</p>
+        </div>
+
+        <div class="industries-grid">
+          <div class="industry-card card reveal" style="transition-delay:0.05s">
+            <span class="ind-tag">01 — LOGISTICS</span>
+            <h3>Logistics & Fleet</h3>
+            <p>Long-haul trucking companies face driver fatigue, rear-end collisions, and runaway fuel costs. IMAS
+              tackles all three.</p>
+            <span class="stat-pill">₹2.1Cr savings / 100 vehicles</span>
+          </div>
+
+          <div class="industry-card card reveal" style="transition-delay:0.15s">
+            <span class="ind-tag">02 — PUBLIC TRANSPORT</span>
+            <h3>Public Transport</h3>
+            <p>State bus operators need scalable passenger safety. Our real-time alert system gives dispatchers full
+              visibility.</p>
+            <span class="stat-pill">40% accident drop in pilots</span>
+          </div>
+
+          <div class="industry-card card reveal" style="transition-delay:0.25s">
+            <span class="ind-tag">03 — OEM</span>
+            <h3>OEM Manufacturers</h3>
+            <p>Generic AI fails Indian roads. Our SDK gives OEMs native intelligence built on real Indian road
+              conditions.</p>
+            <span class="stat-pill">60% faster AI integration</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block" style="padding: 80px 0;">
+      <div class="container stats-container">
+        <div class="section-header centered reveal">
+          <div class="eyebrow centered">PROVEN IMPACT</div>
+          <h2 class="section-title">Numbers That <span class="gold-text">Matter</span></h2>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-block reveal"><span class="stat-number gold-text" data-target="40"
+              data-suffix="%">0%</span><span class="stat-label">Accident Drop</span></div>
+          <div class="stat-block reveal" style="transition-delay:0.07s"><span class="stat-number gold-text"
+              data-target="2.1" data-suffix="Cr₹" data-decimal="true">0Cr₹</span><span class="stat-label">Annual
+              Savings</span></div>
+          <div class="stat-block reveal" style="transition-delay:0.14s"><span class="stat-number gold-text"
+              data-target="85" data-suffix="%">0%</span><span class="stat-label">Alert Accuracy</span></div>
+          <div class="stat-block reveal" style="transition-delay:0.21s"><span class="stat-number gold-text"
+              data-target="700" data-suffix="+">0+</span><span class="stat-label">Vehicles Active</span></div>
+          <div class="stat-block reveal" style="transition-delay:0.28s"><span class="stat-number gold-text"
+              data-target="22" data-suffix="%">0%</span><span class="stat-label">Emission Drop</span></div>
+          <div class="stat-block reveal" style="transition-delay:0.35s"><span class="stat-number gold-text"
+              data-target="50" data-suffix="+">0+</span><span class="stat-label">Fleet Partners</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block surface-bg">
+      <div class="container">
+        <div class="company-inner">
+          <div class="company-left reveal">
+            <div class="eyebrow">WHO WE ARE</div>
+            <h2 class="section-title">Built in India,<br><span class="gold-text">for India</span></h2>
+            <p>PathVision Innovations is a Bengaluru-based deep-tech startup on a mission to make India's heavy vehicle
+              ecosystem safer, smarter, and more sustainable.</p>
+            <p>Founded by IIT and IISc alumni, we've grown to a team of 30+ engineers building AI that understands the
+              reality of Indian roads.</p>
+
+            <div class="company-facts">
+              <span class="fact-chip">
+                <svg class="gold-svg" style="width:14px;height:14px;margin-right:6px;" viewBox="0 0 24 24">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                  <line x1="16" y1="2" x2="16" y2="6" />
+                  <line x1="8" y1="2" x2="8" y2="6" />
+                  <line x1="3" y1="10" x2="21" y2="10" />
+                </svg>
+                Founded 2021
+              </span>
+              <span class="fact-chip">
+                <svg class="gold-svg" style="width:14px;height:14px;margin-right:6px;" viewBox="0 0 24 24">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+                30+ Engineers
+              </span>
+              <span class="fact-chip">
+                <svg class="gold-svg" style="width:14px;height:14px;margin-right:6px;" viewBox="0 0 24 24">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 0-18 0z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+                Bengaluru HQ
+              </span>
+              <span class="fact-chip">
+                <svg class="gold-svg" style="width:14px;height:14px;margin-right:6px;" viewBox="0 0 24 24">
+                  <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                  <path d="M6 12v5c3 3 9 3 12 0v-5" />
+                </svg>
+                IIT / IISc Alumni
+              </span>
+            </div>
+
+            <div style="margin-top:40px;">
+              <a href="company.html" class="btn btn-outline">Our Story →</a>
+            </div>
+          </div>
+
+          <div class="company-visual reveal" style="transition-delay:0.15s">
+            <div class="company-card-big" id="company-tilt">
+              <span class="big-number gold-text">2021</span>
+              <div class="big-label">Year Founded</div>
+              <div class="mini-stats">
+                <div class="mini-stat"><span class="val">30+</span><span class="lbl">Engineers</span></div>
+                <div class="mini-stat"><span class="val">8</span><span class="lbl">States Active</span></div>
+                <div class="mini-stat"><span class="val">700+</span><span class="lbl">Vehicles</span></div>
+                <div class="mini-stat"><span class="val">50+</span><span class="lbl">Partners</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="container">
+        <div class="careers-card reveal">
+          <div class="eyebrow centered">JOIN THE TEAM</div>
+          <h2>We're building AI for roads that<br><span class="gold-text">5 million drivers</span> depend on</h2>
+          <p>Small team, hard problems, real-world impact. If you want to build technology that actually matters — we're
+            hiring.</p>
+          <a href="careers.html" class="btn btn-primary">View Open Roles →</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="cta-final">
+      <div class="bg-grid"></div>
+      <div class="bg-radial"></div>
+      <div class="container">
+        <div class="cta-final-inner reveal">
+          <div class="eyebrow centered">GET STARTED</div>
+          <h2>BUILD THE FUTURE OF<br><span class="gold-text">HEAVY VEHICLE INTELLIGENCE</span></h2>
+          <p>See IMAS in action with a personalized 30-minute demo tailored to your fleet's specific needs.</p>
+          <div class="cta-buttons">
+            <a href="contact.html" class="btn btn-primary">Request Demo →</a>
+            <a href="retrofittable.html" class="btn btn-outline">View Solutions</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand">PATHVISION</div>
+          <div class="sub">INNOVATIONS PVT. LTD.</div>
+          <p>AI-powered safety and intelligence for India's 5M+ heavy vehicles. Making every road journey safer.</p>
+          <div class="social-links">
+            <a href="#" class="social-link" aria-label="LinkedIn">in</a>
+            <a href="#" class="social-link" aria-label="Instagram">𝕏</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Solutions</h4>
+          <ul>
+            <li><a href="retrofittable.html">Retrofittable Systems</a></li>
+            <li><a href="oem.html">OEM Integration</a></li>
+            <li><a href="decarbonization.html">Decarbonization Suite</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="company.html">About Us</a></li>
+            <li><a href="technology.html">Technology</a></li>
+            <li><a href="industries.html">Industries</a></li>
+            <li><a href="careers.html">Careers</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col footer-contact">
+          <h4>Contact</h4>
+          <p style="display:flex; gap:8px; align-items:center;">
+            <svg class="gold-svg" style="width:14px;height:14px;flex-shrink:0;" viewBox="0 0 24 24">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+              <polyline points="22,6 12,13 2,6" />
+            </svg>
+            <a href="mailto:office@pathvision.in">office@pathvision.in</a>
+          </p>
+          <p style="display:flex; gap:8px; align-items:center; margin-top:8px;">
+            <svg class="gold-svg" style="width:14px;height:14px;flex-shrink:0;" viewBox="0 0 24 24">
+              <path
+                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+            </svg>
+            +91 76720 76329
+          </p>
+          <p style="display:flex; gap:8px; align-items:flex-start; margin-top:8px; margin-bottom:20px;">
+            <svg class="gold-svg" style="width:14px;height:14px;flex-shrink:0;margin-top:4px;" viewBox="0 0 24 24">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 0-18 0z" />
+              <circle cx="12" cy="10" r="3" />
+            </svg>
+            <span>Prodattur, Andhra Pradesh</span>
+          </p>
+          <a href="contact.html" class="btn btn-outline" style="font-size:12px;padding:10px 20px;">Schedule a Demo</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 PathVision Innovations Pvt. Ltd. All rights reserved.</p>
+        <p>Made in India 🇮🇳</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ── Navbar scroll effect ──
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    // ── Animated Mobile Menu ──
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    let menuOpen = false;
+
+    function toggleMenu() {
+      menuOpen = !menuOpen;
+      hamburger.classList.toggle('active', menuOpen);
+      mobileMenu.classList.toggle('open', menuOpen);
+      document.body.style.overflow = menuOpen ? 'hidden' : '';
+    }
+
+    hamburger.addEventListener('click', toggleMenu);
+
+    mobileMenu.querySelectorAll('a:not(.mobile-acc-btn)').forEach(a => {
+      a.addEventListener('click', () => { if (menuOpen) toggleMenu(); });
+    });
+
+    // ── Mobile Accordion ──
+    const solBtn = document.getElementById('mobile-solutions-btn');
+    const solContent = document.getElementById('mobile-solutions-content');
+
+    solBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      solBtn.classList.toggle('open');
+      solContent.classList.toggle('expanded');
+    });
+
+    // ── Scroll reveal ──
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // ── Counter animation ──
+    function easeOutQuart(t) { return 1 - Math.pow(1 - t, 4); }
+    function animateCounter(el) {
+      const target = parseFloat(el.dataset.target);
+      const suffix = el.dataset.suffix || '';
+      const isDecimal = el.dataset.decimal === 'true';
+      const duration = 1800;
+      let start = null;
+
+      function step(timestamp) {
+        if (!start) start = timestamp;
+        const progress = Math.min((timestamp - start) / duration, 1);
+        const eased = easeOutQuart(progress);
+        const current = target * eased;
+        el.textContent = isDecimal ? current.toFixed(1) + suffix : Math.round(current) + suffix;
+        if (progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          counterObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('[data-target]').forEach(el => counterObserver.observe(el));
+
+    // ── Interactive 3D Effects ──
+    function applyTiltEffect(elementId, containerSelector, dampen = 15) {
+      const card = document.getElementById(elementId);
+      const container = document.querySelector(containerSelector) || card.parentElement;
+
+      if (card && window.matchMedia("(min-width: 769px)").matches) {
+        container.addEventListener('mousemove', (e) => {
+          const rect = container.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          const rotateX = -(y / dampen);
+          const rotateY = (x / dampen);
+
+          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        });
+
+        container.addEventListener('mouseleave', () => {
+          card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+        });
+      }
+    }
+
+    // Apply tilt to Hero Dashboard and Company Card
+    applyTiltEffect('hero-dashboard', '.hero-visual-container', 20);
+    applyTiltEffect('company-tilt', '.company-visual', 15);
+  </script>
+</body>
+
+</html>

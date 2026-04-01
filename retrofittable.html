@@ -1,0 +1,1839 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Retrofittable Systems — PathVision Innovations</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+
+  <style>
+    /* ── RESET & BASE ── */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #000000;
+      --surface: #0A0A0A;
+      --card: #141414;
+      --border: #2A2A2A;
+      --gold: #D4AF37;
+      --gold-light: #F5D77A;
+      --white: #FFFFFF;
+      --muted: #A0A0A0;
+      --font-head: 'Bebas Neue', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --accent: #4ade80;
+    }
+
+    html,
+    body {
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      position: relative;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--gold);
+      border-radius: 2px;
+    }
+
+    /* ── UTILITIES ── */
+    .container {
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .gold-text {
+      background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      background-size: 200% auto;
+      animation: gold-shimmer 4s linear infinite;
+    }
+
+    @keyframes gold-shimmer {
+      0% {
+        background-position: 0% center;
+      }
+
+      100% {
+        background-position: 200% center;
+      }
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .eyebrow::before {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .eyebrow.centered {
+      justify-content: center;
+    }
+
+    .eyebrow.centered::before {
+      display: none;
+    }
+
+    .section-title {
+      font-family: var(--font-head);
+      font-size: clamp(36px, 5vw, 60px);
+      letter-spacing: 0.04em;
+      line-height: 1.05;
+      margin-bottom: 16px;
+    }
+
+    .section-subtitle {
+      color: var(--muted);
+      font-size: 17px;
+      max-width: 560px;
+      line-height: 1.7;
+    }
+
+    .section-header {
+      margin-bottom: 64px;
+    }
+
+    .section-header.centered {
+      text-align: center;
+    }
+
+    .section-header.centered .section-subtitle {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 28px;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      text-align: center;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: #000;
+    }
+
+    .btn-primary:hover {
+      background: var(--gold-light);
+      box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 1px solid var(--gold);
+    }
+
+    .btn-outline:hover {
+      background: var(--gold);
+      color: #000;
+      box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+      transform: translateY(-1px);
+    }
+
+    /* ── STRICTLY GOLD SVGS ── */
+    .gold-svg {
+      width: 100%;
+      height: 100%;
+      stroke: var(--gold);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* ── ANIMATIONS ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes fade-up {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ══════════════════════════════════════
+       NAVBAR & DROPDOWN
+    ══════════════════════════════════════ */
+    #navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 0 24px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      transition: background 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease;
+      border-bottom: 1px solid transparent;
+    }
+
+    #navbar.scrolled {
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom-color: var(--border);
+    }
+
+    .nav-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      line-height: 1;
+      position: relative;
+      z-index: 1001;
+    }
+
+    .nav-logo-img {
+      height: 100px;
+      padding: 10px 0;
+      width: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .nav-links li {
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+
+    .nav-links>li>a:hover,
+    .nav-links>li>a.active {
+      color: var(--gold);
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown>a {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(15px);
+      background: rgba(10, 10, 10, 0.98);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 0;
+      min-width: 250px;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+      display: flex;
+      flex-direction: column;
+      z-index: 1002;
+    }
+
+    .dropdown:hover .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .dropdown-menu a {
+      display: block;
+      padding: 12px 24px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      text-transform: uppercase;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .dropdown-menu a:hover,
+    .dropdown-menu a.active {
+      color: var(--gold);
+      background: rgba(212, 175, 55, 0.05);
+      padding-left: 28px;
+    }
+
+    /* Hamburger & Mobile Nav Container */
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      position: relative;
+      z-index: 1001;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 28px;
+      height: 20px;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      padding: 0;
+      z-index: 9999;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background-color: #FFFFFF;
+      border-radius: 2px;
+      transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      transform-origin: center;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: translateY(9px) rotate(45deg);
+      background-color: var(--gold);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+      transform: translateX(10px);
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: translateY(-9px) rotate(-45deg);
+      background-color: var(--gold);
+    }
+
+    /* Enhanced Mobile Menu Drawer */
+    #mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 100%;
+      height: 100vh;
+      background: rgba(5, 5, 5, 0.98);
+      backdrop-filter: blur(20px);
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      padding: 100px 40px 40px;
+      transition: right 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+      overflow-y: auto;
+    }
+
+    #mobile-menu.open {
+      right: 0;
+    }
+
+    .mobile-nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      width: 100%;
+    }
+
+    .mobile-nav-list a,
+    .mobile-nav-list .mobile-acc-btn {
+      font-family: var(--font-head);
+      font-size: 36px;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      transition: color 0.2s;
+      text-decoration: none;
+      border: none;
+      background: none;
+      text-align: left;
+      width: 100%;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .mobile-nav-list a:hover,
+    .mobile-nav-list a.active,
+    .mobile-nav-list .mobile-acc-btn:hover,
+    .mobile-nav-list .mobile-acc-btn.open {
+      color: var(--gold);
+    }
+
+    /* Mobile Accordion for Solutions */
+    .mobile-dropdown-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding-left: 16px;
+      border-left: 2px solid var(--border);
+      margin-top: 8px;
+    }
+
+    .mobile-dropdown-content.expanded {
+      max-height: 250px;
+      margin-bottom: 12px;
+      border-color: rgba(212, 175, 55, 0.3);
+    }
+
+    .mobile-dropdown-content a {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #888;
+      transition: color 0.2s, transform 0.2s;
+    }
+
+    .mobile-dropdown-content a:hover,
+    .mobile-dropdown-content a.active {
+      color: var(--gold-light);
+      transform: translateX(4px);
+    }
+
+    .mobile-acc-icon {
+      font-size: 18px;
+      margin-left: 8px;
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
+
+    .mobile-acc-btn.open .mobile-acc-icon {
+      transform: rotate(180deg);
+      color: var(--gold);
+    }
+
+    /* ══════════════════════════════════════
+       SPLIT HERO & INTERACTIVE AI DASHBOARD
+    ══════════════════════════════════════ */
+    .split-hero {
+      padding: 140px 0 80px;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+
+    .bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(212, 175, 55, 0.05) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 25%, transparent 100%);
+      z-index: 0;
+    }
+
+    .split-hero-inner {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 64px;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+      width: 100%;
+    }
+
+    .hero-text h1 {
+      font-family: var(--font-head);
+      font-size: clamp(48px, 6vw, 88px);
+      line-height: 1;
+      letter-spacing: 0.03em;
+      margin-bottom: 24px;
+      animation: fade-up 0.8s ease both;
+    }
+
+    .hero-text p {
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.75;
+      margin-bottom: 32px;
+      animation: fade-up 0.8s ease 0.15s both;
+      max-width: 500px;
+    }
+
+    .sol-stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+      animation: fade-up 0.8s ease 0.2s both;
+    }
+
+    .sol-stat {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .sol-stat .s-val {
+      font-family: var(--font-head);
+      font-size: 28px;
+      line-height: 1;
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .sol-stat .s-lbl {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* 3D Interactive AI Dashboard Element */
+    .mockup-container {
+      perspective: 1200px;
+      animation: fade-up 0.8s ease 0.3s both;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .interactive-mockup {
+      position: relative;
+      width: 100%;
+      max-width: 480px;
+      aspect-ratio: 4/3;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #111, #050505);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+      overflow: hidden;
+      transform-style: preserve-3d;
+      transition: transform 0.1s ease-out, box-shadow 0.3s ease;
+    }
+
+    .interactive-mockup::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(212, 175, 55, 0.1) 0%, transparent 60%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Simulated UI inside the Mockup */
+    .mockup-ui {
+      position: absolute;
+      inset: 0;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      z-index: 2;
+      pointer-events: none;
+      transform: translateZ(30px);
+    }
+
+    .ui-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .ui-badge {
+      background: rgba(212, 175, 55, 0.15);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      color: var(--gold-light);
+      font-size: 10px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ui-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 6px var(--accent);
+      animation: blink 1.5s infinite;
+    }
+
+    /* Bounding Box / Vision Simulation */
+    .vision-box {
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%) translateZ(50px);
+      width: 140px;
+      height: 140px;
+      border: 2px solid rgba(212, 175, 55, 0.6);
+      border-radius: 8px;
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.2) inset, 0 0 20px rgba(212, 175, 55, 0.2);
+    }
+
+    .vision-box::after {
+      content: 'VEHICLE DETECTED - 14m';
+      position: absolute;
+      top: -24px;
+      left: -2px;
+      background: rgba(212, 175, 55, 0.8);
+      color: #000;
+      font-size: 9px;
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 2px;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
+    /* Scanning Line */
+    .scanner-line {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 2px;
+      background: var(--gold-light);
+      box-shadow: 0 0 10px var(--gold-light), 0 10px 20px rgba(212, 175, 55, 0.4);
+      animation: scan 3s ease-in-out infinite alternate;
+      z-index: 3;
+    }
+
+    @keyframes scan {
+      0% {
+        top: 10%;
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 1;
+      }
+
+      90% {
+        opacity: 1;
+      }
+
+      100% {
+        top: 90%;
+        opacity: 0;
+      }
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.4;
+      }
+    }
+
+    /* ══════════════════════════════════════
+       PAGE CONTENT STYLES
+    ══════════════════════════════════════ */
+    .content-section {
+      padding: 100px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sol-section-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    /* Specification Table Styling */
+    .table-container {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      width: 100%;
+      overflow-x: auto;
+      margin-top: 32px;
+    }
+
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 300px;
+    }
+
+    .spec-table tr {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      transition: background 0.2s;
+    }
+
+    .spec-table tr:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .spec-table tr:last-child {
+      border-bottom: none;
+    }
+
+    .spec-table td {
+      padding: 16px 24px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .spec-table td:first-child {
+      width: 40%;
+      color: var(--muted);
+      border-right: 1px solid rgba(255, 255, 255, 0.04);
+      font-weight: 500;
+    }
+
+    .spec-table td:last-child {
+      color: var(--white);
+    }
+
+    /* Feature Cards */
+    .sol-features {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sol-feature-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sol-feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 2px;
+      height: 100%;
+      background: var(--gold);
+      transform: scaleY(0);
+      transition: transform 0.3s ease;
+      transform-origin: top;
+    }
+
+    .sol-feature-card:hover {
+      border-color: rgba(212, 175, 55, 0.3);
+      transform: translateX(4px);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    .sol-feature-card:hover::before {
+      transform: scaleY(1);
+    }
+
+    .feat-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      background: rgba(212, 175, 55, 0.08);
+      border: 1px solid rgba(212, 175, 55, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
+      padding: 10px;
+    }
+
+    .sol-feature-card:hover .feat-icon {
+      transform: scale(1.1);
+      background: rgba(212, 175, 55, 0.15);
+    }
+
+    .feat-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+
+    .feat-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ══════════════════════════════════════
+       INSTALLATION PROCESS
+    ══════════════════════════════════════ */
+    .process-section {
+      padding: 120px 0;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      position: relative;
+      margin-top: 64px;
+    }
+
+    /* Connecting line */
+    .process-grid::before {
+      content: '';
+      position: absolute;
+      top: 32px;
+      left: 10%;
+      right: 10%;
+      height: 2px;
+      background: rgba(212, 175, 55, 0.15);
+      z-index: 0;
+    }
+
+    .process-step {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    .step-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 2px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      padding: 16px;
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+    }
+
+    .step-num {
+      font-family: var(--font-head);
+      font-size: 24px;
+      color: var(--gold);
+      margin-bottom: 8px;
+      letter-spacing: 0.05em;
+    }
+
+    .step-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .step-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ══════════════════════════════════════
+       BENEFITS
+    ══════════════════════════════════════ */
+    .benefits-section {
+      padding: 120px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .benefit-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 40px;
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      transition: all 0.3s;
+    }
+
+    .benefit-card:hover {
+      border-color: rgba(212, 175, 55, 0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .bc-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      background: rgba(212, 175, 55, 0.08);
+      border: 1px solid rgba(212, 175, 55, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px;
+      flex-shrink: 0;
+    }
+
+    .bc-title {
+      font-family: var(--font-head);
+      font-size: 28px;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      margin-bottom: 12px;
+      line-height: 1;
+    }
+
+    .bc-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ══════════════════════════════════════
+       FINAL CTA
+    ══════════════════════════════════════ */
+    #cta-final {
+      padding: 140px 0;
+      position: relative;
+      overflow: hidden;
+      background: var(--surface);
+    }
+
+    #cta-final .bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(212, 175, 55, 0.05) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    #cta-final .bg-radial {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(0, 0, 0, 0) 0%, #000 80%);
+    }
+
+    .cta-final-inner {
+      position: relative;
+      text-align: center;
+      z-index: 2;
+    }
+
+    .cta-final-inner h2 {
+      font-family: var(--font-head);
+      font-size: clamp(40px, 6vw, 88px);
+      letter-spacing: 0.04em;
+      line-height: 1;
+      margin-bottom: 24px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-final-inner p {
+      color: var(--muted);
+      font-size: 17px;
+      max-width: 480px;
+      margin: 0 auto 48px;
+      line-height: 1.7;
+    }
+
+    /* ══════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════ */
+    footer {
+      background: var(--surface);
+      padding: 72px 0 0;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      gap: 48px;
+      margin-bottom: 64px;
+    }
+
+    .footer-brand .brand {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+    }
+
+    .footer-brand .sub {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      margin-top: 2px;
+      margin-bottom: 16px;
+    }
+
+    .footer-brand p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 260px;
+      margin-bottom: 24px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 12px;
+    }
+
+    .social-link {
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      transition: all 0.2s;
+    }
+
+    .social-link:hover {
+      border-color: var(--gold);
+    }
+
+    .footer-col h4 {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 12px;
+    }
+
+    .footer-col ul li a {
+      font-size: 13px;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+
+    .footer-col ul li a:hover {
+      color: var(--white);
+    }
+
+    .footer-contact p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .footer-contact a {
+      color: var(--gold-light);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding: 24px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-bottom p {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* ══════════════════════════════════════
+       RESPONSIVE DESIGN (BULLETPROOF FIXES)
+    ══════════════════════════════════════ */
+    @media (max-width: 1024px) {
+
+      .nav-links,
+      .nav-right .btn {
+        display: none !important;
+      }
+
+      .hamburger {
+        display: flex !important;
+      }
+
+      .split-hero-inner {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+      }
+
+      .hero-text {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .hero-sub {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-buttons {
+        justify-content: center;
+      }
+
+      .process-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 64px;
+      }
+
+      .process-grid::before {
+        display: none;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sol-section-inner {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .sol-stat-row {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+      }
+
+      .sol-stat {
+        padding: 16px 10px;
+      }
+
+      .sol-stat .s-val {
+        font-size: 24px;
+      }
+
+      .benefits-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav-logo-img {
+        height: 100px;
+      }
+
+      .split-hero {
+        padding: 120px 0 40px;
+        min-height: auto;
+      }
+
+      /* CRITICAL FIX: Force flex-column layout to prevent grid overlap */
+      .split-hero-inner {
+        display: flex;
+        flex-direction: column;
+        gap: 48px;
+      }
+
+      .hero-text {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .sol-stat-row {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 12px;
+      }
+
+      .sol-stat {
+        width: 100%;
+        padding: 20px;
+      }
+
+      .hero-buttons {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .hero-buttons .btn {
+        width: 100%;
+      }
+
+      /* Safely scale down the 3D board and keep it below the text */
+      .mockup-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin: 0 auto;
+      }
+
+      .interactive-mockup {
+        transform: scale(0.9);
+        transform-origin: top center;
+        margin: 0 auto;
+      }
+
+      .process-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .benefit-card {
+        flex-direction: column;
+        gap: 16px;
+        padding: 24px;
+      }
+
+      .spec-table td {
+        padding: 12px 16px;
+        display: block;
+        width: 100% !important;
+        border-right: none !important;
+      }
+
+      .spec-table td:first-child {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+        padding-bottom: 6px;
+        color: var(--gold-light);
+      }
+
+      .spec-table td:last-child {
+        padding-top: 6px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <img src="logo.png" alt="PathVision Logo" class="nav-logo-img" />
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="company.html">Company</a></li>
+        <li class="dropdown">
+          <a class="active">Solutions <span style="font-size: 9px; margin-left:2px;">▼</span></a>
+          <ul class="dropdown-menu">
+            <li><a href="retrofittable.html" class="active">01 — Retrofittable Systems</a></li>
+            <li><a href="oem.html">02 — OEM Integration</a></li>
+            <li><a href="decarbonization.html">03 — Decarbonization Suite</a></li>
+          </ul>
+        </li>
+        <li><a href="technology.html">Technology</a></li>
+        <li><a href="industries.html">Industries</a></li>
+        <li><a href="impact.html">Impact</a></li>
+        <li><a href="careers.html">Careers</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+
+      <div class="nav-right">
+        <a href="contact.html" class="btn btn-primary" style="padding:10px 20px;font-size:12px;">Request Demo</a>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div id="mobile-menu" role="dialog" aria-modal="true">
+    <div class="mobile-nav-list">
+      <a href="index.html">Home</a>
+      <a href="company.html">Company</a>
+
+      <div>
+        <button class="mobile-acc-btn open" id="mobile-solutions-btn" style="color:var(--gold);">
+          Solutions <span class="mobile-acc-icon">▼</span>
+        </button>
+        <div class="mobile-dropdown-content expanded" id="mobile-solutions-content">
+          <a href="retrofittable.html" class="active" style="color:var(--white);">01 — Retrofittable</a>
+          <a href="oem.html">02 — OEM Integration</a>
+          <a href="decarbonization.html">03 — Decarbonization</a>
+        </div>
+      </div>
+
+      <a href="technology.html">Technology</a>
+      <a href="industries.html">Industries</a>
+      <a href="impact.html">Impact</a>
+      <a href="careers.html">Careers</a>
+      <a href="contact.html">Contact</a>
+      <a href="contact.html" class="btn btn-primary"
+        style="margin-top:16px; width: 100%; justify-content:center;">Request Demo</a>
+    </div>
+  </div>
+
+  <main>
+    <section class="split-hero">
+      <div class="bg-grid"></div>
+      <div class="container">
+        <div class="split-hero-inner">
+
+          <div class="hero-text">
+            <div class="eyebrow">Solution 01</div>
+            <h1>RETROFITTABLE<br><span class="gold-text">SYSTEMS</span></h1>
+            <p>Transform any existing heavy vehicle into a fully AI-enabled safety machine—without replacing it.
+              Installs in 3 days with zero operational downtime.</p>
+
+            <div class="sol-stat-row">
+              <div class="sol-stat"><span class="s-val gold-text">3</span><span class="s-lbl">Days to Install</span>
+              </div>
+              <div class="sol-stat"><span class="s-val gold-text">0</span><span class="s-lbl">Downtime</span></div>
+              <div class="sol-stat"><span class="s-val gold-text">40%</span><span class="s-lbl">Accident Drop</span>
+              </div>
+            </div>
+
+            <div class="hero-buttons">
+              <a href="contact.html" class="btn btn-primary">Schedule Deployment</a>
+            </div>
+          </div>
+
+          <div class="mockup-container">
+            <div class="interactive-mockup" id="tilt-card">
+              <div class="scanner-line"></div>
+              <div class="mockup-ui">
+                <div class="ui-top">
+                  <div class="ui-badge">AI ACTIVE</div>
+                  <div style="color:var(--muted); font-family:monospace; font-size:12px;">CAM_FWD_01</div>
+                </div>
+                <div style="font-family:monospace; font-size:10px; color:rgba(255,255,255,0.4); text-align:right;">
+                  SYS_TEMP: 42C<br>LAT: 12.9716<br>FPS: 30
+                </div>
+              </div>
+              <div class="vision-box"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <div class="container">
+        <div class="sol-section-inner">
+
+          <div class="reveal">
+            <h2 style="font-family:var(--font-head); font-size: 40px; margin-bottom: 24px;">Active Safety For <span
+                class="gold-text">Every Road</span></h2>
+            <p style="color:var(--muted); font-size: 16px; margin-bottom: 32px; line-height: 1.8;">Our engineers handle
+              the full installation. From day 4, your drivers are protected by the same AI models that have prevented
+              accidents across 700+ vehicles nationwide. The system operates entirely offline using Edge computing,
+              ensuring driver alerts never drop due to poor connectivity.</p>
+
+            <div class="eyebrow">Technical Specifications</div>
+            <div class="table-container">
+              <table class="spec-table">
+                <tr>
+                  <td>Installation Time</td>
+                  <td><span style="color:var(--gold-light);">3 working days</span></td>
+                </tr>
+                <tr>
+                  <td>Vehicle Downtime</td>
+                  <td><span style="color:var(--gold-light);">Zero</span></td>
+                </tr>
+                <tr>
+                  <td>Supported Vehicles</td>
+                  <td>Trucks, buses, tankers, construction vehicles</td>
+                </tr>
+                <tr>
+                  <td>Connectivity</td>
+                  <td>4G LTE + offline edge mode</td>
+                </tr>
+                <tr>
+                  <td>Power Draw</td>
+                  <td>&lt;15W total system</td>
+                </tr>
+                <tr>
+                  <td>Compliance</td>
+                  <td>AIS-140, MV Act</td>
+                </tr>
+                <tr>
+                  <td>Warranty</td>
+                  <td>2 years hardware, lifetime software updates</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+          <div class="sol-features reveal" style="transition-delay:0.1s">
+            <div class="sol-feature-card">
+              <div class="feat-icon">
+                <svg class="gold-svg" viewBox="0 0 24 24">
+                  <path
+                    d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a2 2 0 0 0-1.6-.8H5.3a2 2 0 0 0-1.6.8L1 11l-.16.84A1 1 0 0 0 0 12.85V16h3M3 16v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-2m10 0v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-2M7 16h10" />
+                </svg>
+              </div>
+              <div>
+                <div class="feat-title">Forward Collision Warning</div>
+                <div class="feat-desc">Real-time detection of vehicles, pedestrians, and objects ahead. Audible + visual
+                  alerts at configurable distances.</div>
+              </div>
+            </div>
+            <div class="sol-feature-card">
+              <div class="feat-icon">
+                <svg class="gold-svg" viewBox="0 0 24 24">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+              </div>
+              <div>
+                <div class="feat-title">Driver Fatigue Detection</div>
+                <div class="feat-desc">In-cabin IR camera monitors blink rate, head position, and micro-sleep events to
+                  prevent dozing off.</div>
+              </div>
+            </div>
+            <div class="sol-feature-card">
+              <div class="feat-icon">
+                <svg class="gold-svg" viewBox="0 0 24 24">
+                  <line x1="12" y1="4" x2="12" y2="8" />
+                  <line x1="12" y1="16" x2="12" y2="20" />
+                  <path d="M4 22L8 2M20 22L16 2" />
+                </svg>
+              </div>
+              <div>
+                <div class="feat-title">Lane Departure Warning</div>
+                <div class="feat-desc">Detects unintended lane drift. Specially tuned for Indian road markings — dashed,
+                  solid, and faded alike.</div>
+              </div>
+            </div>
+            <div class="sol-feature-card">
+              <div class="feat-icon">
+                <svg class="gold-svg" viewBox="0 0 24 24">
+                  <path d="M5 12.55a11 11 0 0 1 14.08 0" />
+                  <path d="M1.42 9a16 16 0 0 1 21.16 0" />
+                  <path d="M8.53 16.11a6 6 0 0 1 6.95 0" />
+                  <line x1="12" y1="20" x2="12.01" y2="20" />
+                </svg>
+              </div>
+              <div>
+                <div class="feat-title">360° Blind Spot Monitoring</div>
+                <div class="feat-desc">8-camera surround view with AI object classification. Alerts on overtaking bikes
+                  and pedestrians instantly.</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="process-section">
+      <div class="container">
+        <div class="section-header centered reveal">
+          <div class="eyebrow centered">ZERO DOWNTIME</div>
+          <h2 class="section-title">4-Step <span class="gold-text">Installation</span></h2>
+          <p class="section-subtitle">We deploy without disrupting your operations. From assessment to live telemetry in
+            72 hours.</p>
+        </div>
+
+        <div class="process-grid reveal" style="transition-delay:0.1s">
+
+          <div class="process-step">
+            <div class="step-icon">
+              <svg class="gold-svg" viewBox="0 0 24 24">
+                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+                <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
+              </svg>
+            </div>
+            <div class="step-num">01</div>
+            <h4 class="step-title">Fleet Assessment</h4>
+            <p class="step-desc">We audit your vehicle types and map optimal sensor placement.</p>
+          </div>
+
+          <div class="process-step">
+            <div class="step-icon">
+              <svg class="gold-svg" viewBox="0 0 24 24">
+                <path
+                  d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+              </svg>
+            </div>
+            <div class="step-num">02</div>
+            <h4 class="step-title">Hardware Mounting</h4>
+            <p class="step-desc">Installation of the NPU, cameras, and radar during routine parking.</p>
+          </div>
+
+          <div class="process-step">
+            <div class="step-icon">
+              <svg class="gold-svg" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" />
+                <circle cx="12" cy="12" r="6" />
+                <circle cx="12" cy="12" r="2" />
+              </svg>
+            </div>
+            <div class="step-num">03</div>
+            <h4 class="step-title">AI Calibration</h4>
+            <p class="step-desc">Models are tuned to the specific dimensions and blind spots of the truck.</p>
+          </div>
+
+          <div class="process-step">
+            <div class="step-icon">
+              <svg class="gold-svg" viewBox="0 0 24 24">
+                <path d="M5 12.55a11 11 0 0 1 14.08 0" />
+                <path d="M1.42 9a16 16 0 0 1 21.16 0" />
+                <path d="M8.53 16.11a6 6 0 0 1 6.95 0" />
+                <line x1="12" y1="20" x2="12.01" y2="20" />
+              </svg>
+            </div>
+            <div class="step-num">04</div>
+            <h4 class="step-title">Live Telemetry</h4>
+            <p class="step-desc">Dashboard goes live. Dispatchers receive real-time alerts immediately.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="benefits-section">
+      <div class="container">
+        <div class="section-header centered reveal">
+          <div class="eyebrow centered">THE OUTCOME</div>
+          <h2 class="section-title">Measurable <span class="gold-text">Impact</span></h2>
+        </div>
+
+        <div class="benefits-grid">
+
+          <div class="benefit-card reveal">
+            <div class="bc-icon">
+              <svg class="gold-svg" viewBox="0 0 24 24">
+                <polyline points="23 18 13.5 8.5 8.5 13.5 1 6" />
+                <polyline points="17 18 23 18 23 12" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="bc-title">40% Accident Reduction</h3>
+              <p class="bc-desc">Proactive warnings transform driver behavior, slashing collision rates across the fleet
+                within the first 6 months of installation.</p>
+            </div>
+          </div>
+
+          <div class="benefit-card reveal" style="transition-delay:0.1s">
+            <div class="bc-icon">
+              <svg class="gold-svg" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 8v8" />
+                <path d="M10 10h4" />
+                <path d="M10 14h4" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="bc-title">Fast ROI</h3>
+              <p class="bc-desc">The system pays for itself in under 8 months through fuel savings, reduced insurance
+                premiums, and minimized vehicle repair costs.</p>
+            </div>
+          </div>
+
+          <div class="benefit-card reveal">
+            <div class="bc-icon">
+              <svg class="gold-svg" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="bc-title">Zero Downtime</h3>
+              <p class="bc-desc">We install the hardware during your vehicle's scheduled loading or resting periods,
+                ensuring your logistics operations never stop.</p>
+            </div>
+          </div>
+
+          <div class="benefit-card reveal" style="transition-delay:0.1s">
+            <div class="bc-icon">
+              <svg class="gold-svg" viewBox="0 0 24 24">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="bc-title">Regulatory Compliance</h3>
+              <p class="bc-desc">The IMAS Retrofit kit ensures your fleet immediately meets upcoming government mandates
+                for commercial vehicle safety tech.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="cta-final">
+      <div class="bg-grid"></div>
+      <div class="bg-radial"></div>
+      <div class="container">
+        <div class="cta-final-inner reveal">
+          <div class="eyebrow centered">GET STARTED</div>
+          <h2>UPGRADE YOUR<br><span class="gold-text">EXISTING FLEET</span></h2>
+          <p>See exactly how IMAS fits into your operation with a personalized demo.</p>
+          <div class="cta-buttons">
+            <a href="contact.html" class="btn btn-primary">Request Demo →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand">PATHVISION</div>
+          <div class="sub">INNOVATIONS PVT. LTD.</div>
+          <p>AI-powered safety and intelligence for India's 5M+ heavy vehicles. Making every road journey safer.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Solutions</h4>
+          <ul>
+            <li><a href="retrofittable.html" style="color:var(--white);">Retrofittable Systems</a></li>
+            <li><a href="oem.html">OEM Integration</a></li>
+            <li><a href="decarbonization.html">Decarbonization Suite</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="company.html">About Us</a></li>
+            <li><a href="technology.html">Technology</a></li>
+            <li><a href="industries.html">Industries</a></li>
+            <li><a href="impact.html">Impact</a></li>
+            <li><a href="careers.html">Careers</a></li>
+          </ul>
+        </div>
+        <div class="footer-col footer-contact">
+          <h4>Contact</h4>
+          <p style="display:flex; gap:8px; align-items:center;">
+            <svg class="gold-svg" style="width:14px;height:14px;flex-shrink:0;" viewBox="0 0 24 24">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+              <polyline points="22,6 12,13 2,6" />
+            </svg>
+            <a href="mailto:office@pathvision.in">office@pathvision.in</a>
+          </p>
+          <p style="display:flex; gap:8px; align-items:center; margin-top:8px;">
+            <svg class="gold-svg" style="width:14px;height:14px;flex-shrink:0;" viewBox="0 0 24 24">
+              <path
+                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+            </svg>
+            +91 76720 76329
+          </p>
+          <p style="display:flex; gap:8px; align-items:flex-start; margin-top:8px; margin-bottom:20px;">
+            <svg class="gold-svg" style="width:14px;height:14px;flex-shrink:0;margin-top:4px;" viewBox="0 0 24 24">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 0-18 0z" />
+              <circle cx="12" cy="10" r="3" />
+            </svg>
+            <span>Prodattur, Andhra Pradesh</span>
+          </p>
+          <a href="contact.html" class="btn btn-outline" style="font-size:12px;padding:10px 20px;">Schedule a Demo</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 PathVision Innovations Pvt. Ltd.</p>
+        <p>Made in India 🇮🇳</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Navbar Scroll Effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    // Animated Mobile Menu & Hamburger Logic
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    let menuOpen = false;
+
+    function toggleMenu() {
+      menuOpen = !menuOpen;
+      hamburger.classList.toggle('active', menuOpen);
+      mobileMenu.classList.toggle('open', menuOpen);
+      document.body.style.overflow = menuOpen ? 'hidden' : '';
+    }
+
+    hamburger.addEventListener('click', toggleMenu);
+
+    mobileMenu.querySelectorAll('a:not(.mobile-acc-btn)').forEach(a => {
+      a.addEventListener('click', () => { if (menuOpen) toggleMenu(); });
+    });
+
+    // Mobile Accordion Logic
+    const solBtn = document.getElementById('mobile-solutions-btn');
+    const solContent = document.getElementById('mobile-solutions-content');
+
+    solBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      solBtn.classList.toggle('open');
+      solContent.classList.toggle('expanded');
+    });
+
+    // Scroll Reveal Animation
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // Interactive 3D Card Hover Effect (Desktop Only)
+    const card = document.getElementById('tilt-card');
+    const container = document.querySelector('.mockup-container');
+
+    if (card && window.matchMedia("(min-width: 769px)").matches) {
+      container.addEventListener('mousemove', (e) => {
+        const rect = container.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+
+        const rotateX = -(y / 20);
+        const rotateY = (x / 20);
+
+        card.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        card.style.boxShadow = `${-x / 5}px ${-y / 5 + 25}px 50px -12px rgba(212,175,55,0.3)`;
+      });
+
+      container.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+        card.style.boxShadow = '0 25px 50px -12px rgba(0,0,0,0.8)';
+      });
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Target Ecosystem — PathVision Innovations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+  <style>
+    /* ── RESET & BASE ── */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #000000;
+      --surface: #0A0A0A;
+      --card: #141414;
+      --border: #2A2A2A;
+      --gold: #D4AF37;
+      --gold-light: #F5D77A;
+      --white: #FFFFFF;
+      --muted: #A0A0A0;
+      --font-head: 'Bebas Neue', sans-serif;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    html,
+    body {
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      position: relative;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--gold);
+      border-radius: 2px;
+    }
+
+    /* ── UTILITIES ── */
+    .container {
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .gold-text {
+      background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      background-size: 200% auto;
+      animation: gold-shimmer 4s linear infinite;
+    }
+
+    @keyframes gold-shimmer {
+      0% {
+        background-position: 0% center;
+      }
+
+      100% {
+        background-position: 200% center;
+      }
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .eyebrow::before {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .eyebrow.centered {
+      justify-content: center;
+    }
+
+    .eyebrow.centered::before {
+      display: none;
+    }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 28px;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: #000;
+    }
+
+    .btn-primary:hover {
+      background: var(--gold-light);
+      box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 1px solid var(--gold);
+    }
+
+    .btn-outline:hover {
+      background: var(--gold);
+      color: #000;
+      box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+      transform: translateY(-1px);
+    }
+
+    /* ── ANIMATIONS ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+      min-width: 0;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes fade-up {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ══════════════════════════════════════
+       NAVBAR & MOBILE MENU
+    ══════════════════════════════════════ */
+    #navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 0 24px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      transition: background 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease;
+      border-bottom: 1px solid transparent;
+    }
+
+    #navbar.scrolled {
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom-color: var(--border);
+    }
+
+    .nav-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      line-height: 1;
+      position: relative;
+      z-index: 1001;
+    }
+    
+    .nav-logo-img {
+      height: 100px;
+      width: auto;
+      padding: 10px 0;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .nav-links li {
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+
+    .nav-links>li>a:hover,
+    .nav-links>li>a.active {
+      color: var(--gold);
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown>a {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(15px);
+      background: rgba(10, 10, 10, 0.98);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 0;
+      min-width: 250px;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+      display: flex;
+      flex-direction: column;
+      z-index: 1002;
+    }
+
+    .dropdown:hover .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .dropdown-menu a {
+      display: block;
+      padding: 12px 24px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      text-transform: uppercase;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .dropdown-menu a:hover,
+    .dropdown-menu a.active {
+      color: var(--gold);
+      background: rgba(212, 175, 55, 0.05);
+      padding-left: 28px;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      position: relative;
+      z-index: 1001;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 28px;
+      height: 20px;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      padding: 0;
+      z-index: 9999;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background-color: #FFFFFF;
+      border-radius: 2px;
+      transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      transform-origin: center;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: translateY(9px) rotate(45deg);
+      background-color: var(--gold);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+      transform: translateX(10px);
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: translateY(-9px) rotate(-45deg);
+      background-color: var(--gold);
+    }
+
+    #mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 100%;
+      height: 100vh;
+      background: rgba(5, 5, 5, 0.98);
+      backdrop-filter: blur(20px);
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      padding: 100px 40px 40px;
+      transition: right 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+      overflow-y: auto;
+    }
+
+    #mobile-menu.open {
+      right: 0;
+    }
+
+    .mobile-nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      width: 100%;
+    }
+
+    .mobile-nav-list a,
+    .mobile-nav-list .mobile-acc-btn {
+      font-family: var(--font-head);
+      font-size: 36px;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      transition: color 0.2s;
+      text-decoration: none;
+      border: none;
+      background: none;
+      text-align: left;
+      width: 100%;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .mobile-nav-list a:hover,
+    .mobile-nav-list a.active,
+    .mobile-nav-list .mobile-acc-btn:hover {
+      color: var(--gold);
+    }
+
+    .mobile-dropdown-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding-left: 16px;
+      border-left: 2px solid var(--border);
+      margin-top: 8px;
+    }
+
+    .mobile-dropdown-content.expanded {
+      max-height: 250px;
+      margin-bottom: 12px;
+      border-color: rgba(212, 175, 55, 0.3);
+    }
+
+    .mobile-dropdown-content a {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #888;
+      transition: color 0.2s, transform 0.2s;
+    }
+
+    .mobile-dropdown-content a:hover,
+    .mobile-dropdown-content a.active {
+      color: var(--gold-light);
+      transform: translateX(4px);
+    }
+
+    .mobile-acc-icon {
+      font-size: 18px;
+      margin-left: 8px;
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
+
+    .mobile-acc-btn.open .mobile-acc-icon {
+      transform: rotate(180deg);
+      color: var(--gold);
+    }
+
+    /* ══════════════════════════════════════
+       INTERACTIVE HUB PAGE STYLES
+    ══════════════════════════════════════ */
+    .hub-header {
+      padding: 160px 0 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hub-bg {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(212, 175, 55, 0.1) 1px, transparent 1px);
+      background-size: 40px 40px;
+      mask-image: radial-gradient(ellipse 60% 80% at 50% 0%, black 10%, transparent 80%);
+      -webkit-mask-image: radial-gradient(ellipse 60% 80% at 50% 0%, black 10%, transparent 80%);
+      z-index: 0;
+    }
+
+    .hub-header-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hub-header h1 {
+      font-family: var(--font-head);
+      font-size: clamp(48px, 8vw, 88px);
+      line-height: 0.95;
+      letter-spacing: 0.03em;
+      margin-bottom: 24px;
+      animation: fade-up 0.8s ease both;
+    }
+
+    .hub-header p {
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.75;
+      margin-bottom: 40px;
+      animation: fade-up 0.8s ease 0.15s both;
+    }
+
+    /* Interactive Toggle Controls */
+    .toggle-container {
+      display: inline-flex;
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 6px;
+      position: relative;
+      z-index: 10;
+      animation: fade-up 0.8s ease 0.3s both;
+      backdrop-filter: blur(10px);
+    }
+
+    .toggle-btn {
+      background: transparent;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 100px;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      z-index: 2;
+    }
+
+    .toggle-btn.active {
+      color: #000;
+    }
+
+    /* The sliding pill background for the toggle */
+    .toggle-slider {
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      height: calc(100% - 12px);
+      background: var(--gold);
+      border-radius: 100px;
+      z-index: 1;
+      transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+    }
+
+    /* Interactive Display Grid */
+    .interactive-section {
+      padding: 80px 0 120px;
+      min-height: 600px;
+    }
+
+    .hub-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+      position: relative;
+    }
+
+    /* Filter Items (Cards) */
+    .filter-item {
+      display: none;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      perspective: 1000px;
+    }
+
+    .filter-item.show {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* 3D Card Styling */
+    .interactive-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 48px 40px;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      transform-style: preserve-3d;
+      transition: border-color 0.3s ease, transform 0.1s ease-out;
+      cursor: crosshair;
+    }
+
+    .interactive-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, rgba(212, 175, 55, 0.05) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .interactive-card:hover {
+      border-color: rgba(212, 175, 55, 0.4);
+    }
+
+    /* UPDATED CLASS WITH EMOJI COLOR TRICK */
+    .card-icon-wrapper {
+      width: 64px;
+      height: 64px;
+      border-radius: 12px;
+      background: rgba(212, 175, 55, 0.1);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      margin-bottom: 32px;
+      transform: translateZ(40px);
+      /* Emoji color trick */
+      color: transparent;
+      text-shadow: 0 0 0 var(--gold);
+    }
+
+    .card-title {
+      font-family: var(--font-head);
+      font-size: 36px;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      margin-bottom: 16px;
+      transform: translateZ(30px);
+    }
+
+    .card-desc {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.7;
+      transform: translateZ(20px);
+      margin-bottom: 24px;
+    }
+
+    /* Tech specific details inside cards */
+    .card-specs {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      transform: translateZ(20px);
+    }
+
+    .spec-pill {
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--gold-light);
+      text-transform: uppercase;
+    }
+
+    /* Scanning laser effect on hover */
+    .interactive-card::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: -100%;
+      width: 100%;
+      height: 2px;
+      background: var(--gold);
+      box-shadow: 0 0 20px 5px rgba(212, 175, 55, 0.4);
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .interactive-card:hover::after {
+      opacity: 1;
+      animation: scan 2s linear infinite;
+    }
+
+    @keyframes scan {
+      0% {
+        top: 0%;
+      }
+
+      100% {
+        top: 100%;
+      }
+    }
+
+    /* Blank Slate / Loader */
+    #grid-loader {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 200px;
+      color: var(--gold);
+      font-family: var(--font-head);
+      font-size: 24px;
+      letter-spacing: 0.1em;
+      display: none;
+    }
+
+    /* ══════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════ */
+    footer {
+      background: var(--surface);
+      padding: 72px 0 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      gap: 48px;
+      margin-bottom: 64px;
+    }
+
+    .footer-brand .brand {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+    }
+
+    .footer-brand .sub {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      margin-top: 2px;
+      margin-bottom: 16px;
+    }
+
+    .footer-brand p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 260px;
+      margin-bottom: 24px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 12px;
+    }
+
+    .social-link {
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: var(--muted);
+      transition: all 0.2s;
+    }
+
+    .social-link:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .footer-col h4 {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 12px;
+    }
+
+    .footer-col ul li a {
+      font-size: 13px;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+
+    .footer-col ul li a:hover {
+      color: var(--white);
+    }
+
+    .footer-contact p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .footer-contact a {
+      color: var(--gold-light);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding: 24px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-bottom p {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* ══════════════════════════════════════
+       RESPONSIVE DESIGN 
+    ══════════════════════════════════════ */
+    @media (max-width: 1024px) {
+
+      .nav-links,
+      .nav-right .btn {
+        display: none !important;
+      }
+
+      .hamburger {
+        display: flex !important;
+      }
+
+      .hub-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+      }
+
+      .interactive-card {
+        padding: 32px 24px;
+      }
+
+      /* Disable 3D transforms on tablet/mobile to prevent layout breaking */
+      .interactive-card,
+      .card-icon-wrapper,
+      .card-title,
+      .card-desc,
+      .card-specs {
+        transform: none !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav-logo-img {
+        height: 100px;
+      }
+      
+      .toggle-container {
+        flex-direction: column;
+        width: 100%;
+        padding: 4px;
+        border-radius: 12px;
+      }
+
+      .toggle-btn {
+        padding: 16px;
+        border-radius: 8px;
+        width: 100%;
+      }
+
+      .toggle-slider {
+        border-radius: 8px;
+        width: calc(100% - 8px) !important;
+        height: 50% !important;
+        left: 4px !important;
+      }
+
+      .toggle-slider.state-2 {
+        top: calc(50% + 2px) !important;
+        left: 4px !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <img src="logo.png" alt="PathVision Logo" class="nav-logo-img" />
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="company.html">Company</a></li>
+        <li class="dropdown">
+          <a>Solutions <span style="font-size: 9px; margin-left:2px;">▼</span></a>
+          <ul class="dropdown-menu">
+            <li><a href="retrofittable.html">01 — Retrofittable Systems</a></li>
+            <li><a href="oem.html">02 — OEM Integration</a></li>
+            <li><a href="decarbonization.html">03 — Decarbonization Suite</a></li>
+          </ul>
+        </li>
+        <li><a href="technology.html">Technology</a></li>
+        <li><a href="industries.html" class="active">Industries</a></li>
+        <li><a href="impact.html">Impact</a></li>
+        <li><a href="careers.html">Careers</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+
+      <div class="nav-right">
+        <a href="contact.html" class="btn btn-primary" style="padding:10px 20px;font-size:12px;">Request Demo</a>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div id="mobile-menu" role="dialog" aria-modal="true">
+    <div class="mobile-nav-list">
+      <a href="index.html">Home</a>
+      <a href="company.html">Company</a>
+
+      <div>
+        <button class="mobile-acc-btn" id="mobile-solutions-btn">
+          Solutions <span class="mobile-acc-icon">▼</span>
+        </button>
+        <div class="mobile-dropdown-content" id="mobile-solutions-content">
+          <a href="retrofittable.html">01 — Retrofittable</a>
+          <a href="oem.html">02 — OEM Integration</a>
+          <a href="decarbonization.html">03 — Decarbonization</a>
+        </div>
+      </div>
+
+      <a href="technology.html">Technology</a>
+      <a href="industries.html" class="active" style="color:var(--gold);">Industries</a>
+      <a href="impact.html">Impact</a>
+      <a href="careers.html">Careers</a>
+      <a href="contact.html">Contact</a>
+      <a href="contact.html" class="btn btn-primary"
+        style="margin-top:16px; width: 100%; justify-content:center;">Request Demo</a>
+    </div>
+  </div>
+
+  <main>
+    <section class="hub-header">
+      <div class="hub-bg"></div>
+      <div class="container hub-header-inner">
+        <div class="eyebrow centered">OUR TARGET ECOSYSTEM</div>
+        <h1>THE <span class="gold-text">HEAVYWEIGHTS</span></h1>
+        <p>PathVision is exclusively engineered for the complexities of heavy mobility. Our AI does not deal with
+          passenger cars. Use the dashboard below to explore the specific heavy vehicles we protect and the core
+          industries we transform.</p>
+
+        <div class="toggle-container" id="filter-controls">
+          <div class="toggle-slider" id="toggle-bg"></div>
+          <button class="toggle-btn active" data-filter="vehicles" id="btn-vehicles">Heavy Vehicle Profiles</button>
+          <button class="toggle-btn" data-filter="industries" id="btn-industries">Target Industries</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="interactive-section">
+      <div class="container">
+
+        <div class="hub-grid" id="data-grid">
+
+          <div id="grid-loader">RECALIBRATING MATRIX...</div>
+
+          <div class="filter-item vehicles show">
+            <div class="interactive-card tilt-target">
+              <div class="card-icon-wrapper">🚛</div>
+              <h2 class="card-title">Commercial Freight Trucks</h2>
+              <p class="card-desc">Multi-axle rigid trucks and articulated tractor-trailers navigating national
+                highways. Susceptible to blind-spot collisions, highway hypnosis, and aerodynamic drag inefficiencies.
+              </p>
+              <div class="card-specs">
+                <span class="spec-pill">Primary Risk: Rear-end Collision</span>
+                <span class="spec-pill">Focus: Fatigue Detection</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="filter-item vehicles show">
+            <div class="interactive-card tilt-target">
+              <div class="card-icon-wrapper">🚌</div>
+              <h2 class="card-title">Public & Private Buses</h2>
+              <p class="card-desc">Intracity transit buses and interstate sleeper coaches. Operating in dense urban
+                environments with high pedestrian density and significant passenger liability requirements.</p>
+              <div class="card-specs">
+                <span class="spec-pill">Primary Risk: Urban Blind Spots</span>
+                <span class="spec-pill">Focus: 360° Surround View</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="filter-item vehicles show">
+            <div class="interactive-card tilt-target">
+              <div class="card-icon-wrapper">🚧</div>
+              <h2 class="card-title">Heavy Construction Equipment</h2>
+              <p class="card-desc">Dump trucks, transit mixers, and earthmovers. Operating in off-road, high-dust
+                environments with severe vibration profiles and complex reverse-maneuvering challenges.</p>
+              <div class="card-specs">
+                <span class="spec-pill">Primary Risk: Reversing Accidents</span>
+                <span class="spec-pill">Focus: Ultrasonic Integration</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="filter-item vehicles show">
+            <div class="interactive-card tilt-target">
+              <div class="card-icon-wrapper">🛢️</div>
+              <h2 class="card-title">Hazardous Material Tankers</h2>
+              <p class="card-desc">Liquid and gas carriers requiring extreme stabilization monitoring. High center of
+                gravity makes them prone to rollover events during harsh cornering or evasive maneuvers.</p>
+              <div class="card-specs">
+                <span class="spec-pill">Primary Risk: Rollover Events</span>
+                <span class="spec-pill">Focus: 6-Axis IMU Telemetry</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="filter-item industries">
+            <div class="interactive-card tilt-target">
+              <div class="card-icon-wrapper">📦</div>
+              <h2 class="card-title">Logistics & Supply Chain</h2>
+              <p class="card-desc">Serving long-haul fleet operators and 3PL providers who need to reduce insurance
+                premiums, cut fuel consumption, and ensure drivers complete multi-day routes safely.</p>
+              <div class="card-specs">
+                <span class="spec-pill">Goal: OPEX Reduction</span>
+                <span class="spec-pill">Deployment: Retrofit Kits</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="filter-item industries">
+            <div class="interactive-card tilt-target">
+              <div class="card-icon-wrapper">🏛️</div>
+              <h2 class="card-title">State Public Transport</h2>
+              <p class="card-desc">Partnering with State Road Transport Corporations (SRTCs) to deploy scalable,
+                government-compliant safety layers across thousands of publicly operated buses.</p>
+              <div class="card-specs">
+                <span class="spec-pill">Goal: Passenger Safety Standard</span>
+                <span class="spec-pill">Deployment: Fleet-Wide Integration</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="filter-item industries">
+            <div class="interactive-card tilt-target">
+              <div class="card-icon-wrapper">⛏️</div>
+              <h2 class="card-title">Mining & Infrastructure</h2>
+              <p class="card-desc">Deploying ruggedized AI systems for contractors managing closed-loop mining and
+                massive infrastructure projects where equipment downtime costs thousands per hour.</p>
+              <div class="card-specs">
+                <span class="spec-pill">Goal: Zero-Incident Work Sites</span>
+                <span class="spec-pill">Deployment: Ruggedized Edge AI</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="filter-item industries">
+            <div class="interactive-card tilt-target">
+              <div class="card-icon-wrapper">🏭</div>
+              <h2 class="card-title">Commercial Vehicle OEMs</h2>
+              <p class="card-desc">Working directly with heavy vehicle manufacturers to embed our natively trained
+                Indian-road AI directly into the vehicle's electrical architecture at the factory level.</p>
+              <div class="card-specs">
+                <span class="spec-pill">Goal: Native Smart Vehicles</span>
+                <span class="spec-pill">Deployment: Software SDK Integration</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand">PATHVISION</div>
+          <div class="sub">INNOVATIONS PVT. LTD.</div>
+          <p>AI-powered safety and intelligence for India's 5M+ heavy vehicles. Making every road journey safer.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Solutions</h4>
+          <ul>
+            <li><a href="retrofittable.html">Retrofittable Systems</a></li>
+            <li><a href="oem.html">OEM Integration</a></li>
+            <li><a href="decarbonization.html">Decarbonization Suite</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="company.html">About Us</a></li>
+            <li><a href="technology.html">Technology</a></li>
+            <li><a href="industries.html" style="color:var(--white);">Industries</a></li>
+            <li><a href="careers.html">Careers</a></li>
+          </ul>
+        </div>
+        <div class="footer-col footer-contact">
+          <h4>Contact</h4>
+          <p style="display:flex; gap:8px; align-items:center;">
+            <svg class="gold-svg" style="width:14px;height:14px;flex-shrink:0;" viewBox="0 0 24 24">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+              <polyline points="22,6 12,13 2,6" />
+            </svg>
+            <a href="mailto:office@pathvision.in">office@pathvision.in</a>
+          </p>
+          <p style="display:flex; gap:8px; align-items:center; margin-top:8px;">
+            <svg class="gold-svg" style="width:14px;height:14px;flex-shrink:0;" viewBox="0 0 24 24">
+              <path
+                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+            </svg>
+            +91 76720 76329
+          </p>
+          <p style="display:flex; gap:8px; align-items:flex-start; margin-top:8px; margin-bottom:20px;">
+            <svg class="gold-svg" style="width:14px;height:14px;flex-shrink:0;margin-top:4px;" viewBox="0 0 24 24">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 0-18 0z" />
+              <circle cx="12" cy="10" r="3" />
+            </svg>
+            <span>Prodattur, Andhra Pradesh</span>
+          </p>
+          <a href="contact.html" class="btn btn-outline"
+            style="font-size:12px;padding:10px 20px; margin-top: 10px;">Schedule a Demo</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 PathVision Innovations Pvt. Ltd. All rights reserved.</p>
+        <p>Made in India 🇮🇳</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ── NAVBAR LOGIC ──
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    // ── MOBILE MENU LOGIC ──
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    let menuOpen = false;
+
+    function toggleMenu() {
+      menuOpen = !menuOpen;
+      hamburger.classList.toggle('active', menuOpen);
+      mobileMenu.classList.toggle('open', menuOpen);
+      document.body.style.overflow = menuOpen ? 'hidden' : '';
+    }
+
+    hamburger.addEventListener('click', toggleMenu);
+
+    mobileMenu.querySelectorAll('a:not(.mobile-acc-btn)').forEach(a => {
+      a.addEventListener('click', () => { if (menuOpen) toggleMenu(); });
+    });
+
+    const solBtn = document.getElementById('mobile-solutions-btn');
+    const solContent = document.getElementById('mobile-solutions-content');
+    solBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      solBtn.classList.toggle('open');
+      solContent.classList.toggle('expanded');
+    });
+
+    // ── INTERACTIVE FILTER LOGIC ──
+    const btns = document.querySelectorAll('.toggle-btn');
+    const items = document.querySelectorAll('.filter-item');
+    const slider = document.getElementById('toggle-bg');
+    const loader = document.getElementById('grid-loader');
+
+    // Initialize toggle slider sizing based on active button
+    function updateSliderPosition(activeBtn) {
+      if (window.innerWidth > 480) {
+        // Desktop Layout (Horizontal)
+        slider.style.width = `${activeBtn.offsetWidth}px`;
+        slider.style.left = `${activeBtn.offsetLeft}px`;
+        slider.style.top = '6px';
+        slider.style.height = 'calc(100% - 12px)';
+      } else {
+        // Mobile Layout (Vertical handled mostly by CSS, but ensure classes are synced if needed)
+        // Using a class toggle for mobile simplicity
+      }
+    }
+
+    // Run on load and resize
+    window.addEventListener('load', () => updateSliderPosition(document.querySelector('.toggle-btn.active')));
+    window.addEventListener('resize', () => updateSliderPosition(document.querySelector('.toggle-btn.active')));
+
+    btns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        // Remove active class from all buttons
+        btns.forEach(b => b.classList.remove('active'));
+        // Add active to clicked
+        e.target.classList.add('active');
+
+        // Move slider background
+        updateSliderPosition(e.target);
+
+        // Mobile visual state handler
+        if (window.innerWidth <= 480) {
+          if (e.target.id === 'btn-industries') {
+            slider.classList.add('state-2');
+          } else {
+            slider.classList.remove('state-2');
+          }
+        }
+
+        const filterValue = e.target.getAttribute('data-filter');
+
+        // Animation sequence: Hide all -> Show Loader -> Show Filtered
+        items.forEach(item => {
+          item.classList.remove('show');
+        });
+
+        loader.style.display = 'flex';
+
+        setTimeout(() => {
+          loader.style.display = 'none';
+          items.forEach(item => {
+            if (item.classList.contains(filterValue)) {
+              item.classList.add('show');
+            }
+          });
+        }, 300); // 300ms loading effect
+      });
+    });
+
+    // ── 3D INTERACTIVE TILT EFFECT (DESKTOP ONLY) ──
+    document.querySelectorAll('.filter-item').forEach(item => {
+      const card = item.querySelector('.interactive-card');
+
+      if (card && window.matchMedia("(min-width: 769px)").matches) {
+        item.addEventListener('mousemove', (e) => {
+          const rect = item.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+
+          // Dampen effect: higher number = less tilt
+          const rotateX = -(y / 25);
+          const rotateY = (x / 25);
+
+          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        });
+
+        item.addEventListener('mouseleave', () => {
+          card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+        });
+      }
+    });
+
+    // Initial Scroll Reveal
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+  </script>
+</body>
+
+</html>
