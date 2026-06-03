@@ -611,22 +611,39 @@
       border-color: rgba(212, 175, 55, 0.4);
     }
 
-    /* UPDATED CLASS WITH EMOJI COLOR TRICK */
+    /* PROFESSIONAL SVG ICON CONTAINER */
     .card-icon-wrapper {
       width: 64px;
       height: 64px;
       border-radius: 12px;
-      background: rgba(212, 175, 55, 0.1);
+      background: rgba(212, 175, 55, 0.08);
       border: 1px solid rgba(212, 175, 55, 0.2);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 32px;
       margin-bottom: 32px;
       transform: translateZ(40px);
-      /* Emoji color trick */
-      color: transparent;
-      text-shadow: 0 0 0 var(--gold);
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    .card-icon-wrapper svg {
+      width: 32px;
+      height: 32px;
+      stroke: var(--gold);
+      stroke-width: 1.75;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: transform 0.3s ease;
+    }
+
+    .interactive-card:hover .card-icon-wrapper {
+      background: rgba(212, 175, 55, 0.15);
+      border-color: rgba(212, 175, 55, 0.4);
+    }
+
+    .interactive-card:hover .card-icon-wrapper svg {
+      transform: scale(1.1);
     }
 
     .card-title {
@@ -898,6 +915,245 @@
         left: 4px !important;
       }
     }
+
+    /* Expandable Card Styles */
+    .expand-btn {
+      background: transparent;
+      border: none;
+      color: var(--gold);
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 16px;
+      transition: color 0.2s;
+    }
+    
+    .expand-btn:hover {
+      color: var(--gold-light);
+    }
+    
+    .expand-icon {
+      transition: transform 0.3s ease;
+      font-weight: bold;
+    }
+
+    .card-details {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s;
+      margin-top: 0;
+      opacity: 0;
+    }
+
+    .card-details.active {
+      max-height: 250px;
+      margin-top: 16px;
+      opacity: 1;
+    }
+
+    .card-details ul {
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      list-style: none;
+    }
+
+    .card-details li {
+      font-size: 13px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-details li::before {
+      content: '✓';
+      color: var(--gold);
+      font-weight: bold;
+    }
+
+    /* Workflow Section Styles */
+    .workflow-section {
+      padding: 100px 0;
+      border-top: 1px solid var(--border);
+      position: relative;
+    }
+    
+    .section-title {
+      font-family: var(--font-head);
+      font-size: clamp(36px, 5vw, 64px);
+      letter-spacing: 0.04em;
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    
+    .workflow-stepper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      margin-bottom: 48px;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .workflow-stepper::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--border);
+      z-index: 1;
+      transform: translateY(-50%);
+    }
+    
+    .step-node {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #0F0F0F;
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      cursor: pointer;
+      position: relative;
+      z-index: 2;
+      transition: all 0.3s ease;
+    }
+    
+    .step-node:hover, .step-node.active {
+      border-color: var(--gold);
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+      background: var(--surface);
+      transform: scale(1.1);
+    }
+    
+    .step-node .step-lbl {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 12px;
+      white-space: nowrap;
+      transition: color 0.3s;
+    }
+    
+    .step-node.active .step-lbl {
+      color: var(--gold);
+    }
+
+    .step-node svg {
+      width: 22px;
+      height: 22px;
+      stroke: var(--muted);
+      stroke-width: 1.75;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: stroke 0.3s;
+    }
+    
+    .step-node.active svg, .step-node:hover svg {
+      stroke: var(--gold);
+    }
+
+    .wf-icon-large svg {
+      width: 56px;
+      height: 56px;
+      stroke: var(--gold);
+      stroke-width: 1.5;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    
+    .workflow-details-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+      min-height: 240px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: border-color 0.3s;
+    }
+    
+    .workflow-details-box:hover {
+      border-color: rgba(212, 175, 55, 0.25);
+    }
+    
+    .wf-icon-large {
+      font-size: 48px;
+      margin-bottom: 24px;
+    }
+    
+    .wf-title {
+      font-family: var(--font-head);
+      font-size: 28px;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    
+    .wf-desc {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 600px;
+    }
+    
+    @media (max-width: 768px) {
+      .workflow-stepper {
+        flex-direction: column;
+        gap: 32px;
+        align-items: flex-start;
+        padding-left: 24px;
+      }
+      
+      .workflow-stepper::before {
+        left: 28px;
+        width: 2px;
+        height: 100%;
+        top: 0;
+        transform: none;
+      }
+      
+      .step-node {
+        width: 48px;
+        height: 48px;
+      }
+      
+      .step-node .step-lbl {
+        top: 50%;
+        left: 70px;
+        transform: translateY(-50%);
+        margin-top: 0;
+        text-align: left;
+      }
+    }
   </style>
 </head>
 
@@ -905,30 +1161,22 @@
 
   <nav id="navbar">
     <div class="nav-inner">
-      <a href="index.html" class="nav-logo">
+      <a href="/" class="nav-logo">
         <img src="logo.png" alt="PathVision Logo" class="nav-logo-img" />
       </a>
 
       <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="company.html">Company</a></li>
-        <li class="dropdown">
-          <a>Solutions <span style="font-size: 9px; margin-left:2px;">▼</span></a>
-          <ul class="dropdown-menu">
-            <li><a href="retrofittable.html">01 — Retrofittable Systems</a></li>
-            <li><a href="oem.html">02 — OEM Integration</a></li>
-            <li><a href="decarbonization.html">03 — Decarbonization Suite</a></li>
-          </ul>
-        </li>
-        <li><a href="technology.html">Technology</a></li>
-        <li><a href="industries.html" class="active">Industries</a></li>
-        <li><a href="impact.html">Impact</a></li>
-        <li><a href="careers.html">Careers</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/company">Company</a></li>
+        <li><a href="/retrofittable">Solutions</a></li>
+        <li><a href="/technology">Technology</a></li>
+        <li><a href="/industries" class="active">Industries</a></li>
+        <li><a href="/career">Careers</a></li>
+        <li><a href="/contact">Contact</a></li>
       </ul>
 
       <div class="nav-right">
-        <a href="contact.html" class="btn btn-primary" style="padding:10px 20px;font-size:12px;">Request Demo</a>
+        <a href="/contact" class="btn btn-primary" style="padding:10px 20px;font-size:12px;">Request Demo</a>
         <button class="hamburger" id="hamburger" aria-label="Toggle menu">
           <span></span><span></span><span></span>
         </button>
@@ -938,26 +1186,16 @@
 
   <div id="mobile-menu" role="dialog" aria-modal="true">
     <div class="mobile-nav-list">
-      <a href="index.html">Home</a>
-      <a href="company.html">Company</a>
+      <a href="/">Home</a>
+      <a href="/company">Company</a>
 
-      <div>
-        <button class="mobile-acc-btn" id="mobile-solutions-btn">
-          Solutions <span class="mobile-acc-icon">▼</span>
-        </button>
-        <div class="mobile-dropdown-content" id="mobile-solutions-content">
-          <a href="retrofittable.html">01 — Retrofittable</a>
-          <a href="oem.html">02 — OEM Integration</a>
-          <a href="decarbonization.html">03 — Decarbonization</a>
-        </div>
-      </div>
+      <a href="/retrofittable">Solutions</a>
 
-      <a href="technology.html">Technology</a>
-      <a href="industries.html" class="active" style="color:var(--gold);">Industries</a>
-      <a href="impact.html">Impact</a>
-      <a href="careers.html">Careers</a>
-      <a href="contact.html">Contact</a>
-      <a href="contact.html" class="btn btn-primary"
+      <a href="/technology">Technology</a>
+      <a href="/industries" class="active" style="color:var(--gold);">Industries</a>
+      <a href="/career">Careers</a>
+      <a href="/contact">Contact</a>
+      <a href="/contact" class="btn btn-primary"
         style="margin-top:16px; width: 100%; justify-content:center;">Request Demo</a>
     </div>
   </div>
@@ -968,9 +1206,7 @@
       <div class="container hub-header-inner">
         <div class="eyebrow centered">OUR TARGET ECOSYSTEM</div>
         <h1>THE <span class="gold-text">HEAVYWEIGHTS</span></h1>
-        <p>PathVision is exclusively engineered for the complexities of heavy mobility. Our AI does not deal with
-          passenger cars. Use the dashboard below to explore the specific heavy vehicles we protect and the core
-          industries we transform.</p>
+        <p>PathVision is designed for a connected mobility ecosystem involving fleet operators, transport authorities, infrastructure planners, and safety-focused organizations. The system enhances visibility, safety, and operational awareness across heavy vehicle environments. It enables better monitoring, decision-making, and system-level insights across transportation networks.</p>
 
         <div class="toggle-container" id="filter-controls">
           <div class="toggle-slider" id="toggle-bg"></div>
@@ -989,173 +1225,327 @@
 
           <div class="filter-item vehicles show">
             <div class="interactive-card tilt-target">
-              <div class="card-icon-wrapper">🚛</div>
+              <div class="card-icon-wrapper">
+                <svg viewBox="0 0 24 24"><path d="M14 18H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h8m0 12h3l3-4v-4h-6m0 8V6"></path><circle cx="7.5" cy="18.5" r="2.5"></circle><circle cx="16.5" cy="18.5" r="2.5"></circle></svg>
+              </div>
               <h2 class="card-title">Commercial Freight Trucks</h2>
-              <p class="card-desc">Multi-axle rigid trucks and articulated tractor-trailers navigating national
-                highways. Susceptible to blind-spot collisions, highway hypnosis, and aerodynamic drag inefficiencies.
-              </p>
-              <div class="card-specs">
-                <span class="spec-pill">Primary Risk: Rear-end Collision</span>
-                <span class="spec-pill">Focus: Fatigue Detection</span>
+              <p class="card-desc">Used in logistics and supply operations, these vehicles require continuous monitoring of driver behavior and road conditions. PathVision provides real-time visibility into driving patterns, road risks, and operational safety.</p>
+              <button class="expand-btn">View Capabilities <span class="expand-icon">▼</span></button>
+              <div class="card-details">
+                <ul>
+                  <li>Continuous driver drowsiness & fatigue tracking</li>
+                  <li>Real-time lane departure and tailgating alerts</li>
+                  <li>Operational safety visibility & threat log integration</li>
+                </ul>
+              </div>
+              <div class="card-specs" style="margin-top:16px;">
+                <span class="spec-pill">Risk Focus: Hypnosis & Fatigue</span>
+                <span class="spec-pill">Visibility: Real-Time</span>
               </div>
             </div>
           </div>
 
           <div class="filter-item vehicles show">
             <div class="interactive-card tilt-target">
-              <div class="card-icon-wrapper">🚌</div>
-              <h2 class="card-title">Public & Private Buses</h2>
-              <p class="card-desc">Intracity transit buses and interstate sleeper coaches. Operating in dense urban
-                environments with high pedestrian density and significant passenger liability requirements.</p>
-              <div class="card-specs">
-                <span class="spec-pill">Primary Risk: Urban Blind Spots</span>
-                <span class="spec-pill">Focus: 360° Surround View</span>
+              <div class="card-icon-wrapper">
+                <svg viewBox="0 0 24 24"><path d="M12 2L3 7v9c0 5.25 3.82 10.18 9 11.5 5.18-1.32 9-6.25 9-11.5V7l-9-5z"></path><path d="M12 8v5M12 16h.01"></path></svg>
+              </div>
+              <h2 class="card-title">Hazardous Material Transport Vehicles</h2>
+              <p class="card-desc">These vehicles operate under high-risk conditions where driver attention and environmental awareness are critical. PathVision enhances safety by monitoring driver behavior and detecting potential road hazards.</p>
+              <button class="expand-btn">View Capabilities <span class="expand-icon">▼</span></button>
+              <div class="card-details">
+                <ul>
+                  <li>Intelligent driver attention monitoring</li>
+                  <li>Real-time road hazard and obstacle warnings</li>
+                  <li>Non-intrusive safety tracking & alerts</li>
+                </ul>
+              </div>
+              <div class="card-specs" style="margin-top:16px;">
+                <span class="spec-pill">Risk Focus: Hazard Mitigation</span>
+                <span class="spec-pill">Safety: High-Risk Focus</span>
               </div>
             </div>
           </div>
 
           <div class="filter-item vehicles show">
             <div class="interactive-card tilt-target">
-              <div class="card-icon-wrapper">🚧</div>
-              <h2 class="card-title">Heavy Construction Equipment</h2>
-              <p class="card-desc">Dump trucks, transit mixers, and earthmovers. Operating in off-road, high-dust
-                environments with severe vibration profiles and complex reverse-maneuvering challenges.</p>
-              <div class="card-specs">
-                <span class="spec-pill">Primary Risk: Reversing Accidents</span>
-                <span class="spec-pill">Focus: Ultrasonic Integration</span>
+              <div class="card-icon-wrapper">
+                <svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="15" rx="2"></rect><path d="M4 11h16M8 3v8M16 3v8M6 15h2M16 15h2M4 18v2M20 18v2"></path></svg>
+              </div>
+              <h2 class="card-title">Public and Private Buses</h2>
+              <p class="card-desc">Operating in dense urban and intercity environments, these vehicles require high driver awareness. PathVision improves safety by monitoring driver activity and identifying road-level risks.</p>
+              <button class="expand-btn">View Capabilities <span class="expand-icon">▼</span></button>
+              <div class="card-details">
+                <ul>
+                  <li>Driver activity & attention monitoring</li>
+                  <li>Real-time road-level risk alerts</li>
+                  <li>Passenger & fleet protection standards</li>
+                </ul>
+              </div>
+              <div class="card-specs" style="margin-top:16px;">
+                <span class="spec-pill">Risk Focus: Urban Navigation</span>
+                <span class="spec-pill">Safety: Passenger-First</span>
               </div>
             </div>
           </div>
 
           <div class="filter-item vehicles show">
             <div class="interactive-card tilt-target">
-              <div class="card-icon-wrapper">🛢️</div>
-              <h2 class="card-title">Hazardous Material Tankers</h2>
-              <p class="card-desc">Liquid and gas carriers requiring extreme stabilization monitoring. High center of
-                gravity makes them prone to rollover events during harsh cornering or evasive maneuvers.</p>
-              <div class="card-specs">
-                <span class="spec-pill">Primary Risk: Rollover Events</span>
-                <span class="spec-pill">Focus: 6-Axis IMU Telemetry</span>
+              <div class="card-icon-wrapper">
+                <svg viewBox="0 0 24 24"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              </div>
+              <h2 class="card-title">Infrastructure and City Vehicles</h2>
+              <p class="card-desc">Includes municipal and service vehicles operating in city environments. PathVision supports detection of potholes, speed breakers, and irregular road conditions.</p>
+              <button class="expand-btn">View Capabilities <span class="expand-icon">▼</span></button>
+              <div class="card-details">
+                <ul>
+                  <li>Automatic pothole logging & GPS tagging</li>
+                  <li>Speed breaker sizing alerts</li>
+                  <li>Irregular driving & navigation safety tracking</li>
+                </ul>
+              </div>
+              <div class="card-specs" style="margin-top:16px;">
+                <span class="spec-pill">Risk Focus: Potholes & Hazards</span>
+                <span class="spec-pill">Safety: Municipal Compliance</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="filter-item vehicles show">
+            <div class="interactive-card tilt-target">
+              <div class="card-icon-wrapper">
+                <svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="14" rx="2"></rect><path d="M5 10h14M8 14h2M14 14h2M6 17v4l6-2l6 2v-4"></path></svg>
+              </div>
+              <h2 class="card-title">Railways</h2>
+              <p class="card-desc">PathVision enables monitoring of track surroundings and operator attention to improve safety and operational awareness.</p>
+              <button class="expand-btn">View Capabilities <span class="expand-icon">▼</span></button>
+              <div class="card-details">
+                <ul>
+                  <li>Track obstruction & forward hazard detection</li>
+                  <li>Operator attention & fatigue alerts</li>
+                  <li>System-level operational awareness logs</li>
+                </ul>
+              </div>
+              <div class="card-specs" style="margin-top:16px;">
+                <span class="spec-pill">Risk Focus: Track Obstruction</span>
+                <span class="spec-pill">Safety: Multi-Mode Transit</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="filter-item vehicles show">
+            <div class="interactive-card tilt-target">
+              <div class="card-icon-wrapper">
+                <svg viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1l3.5 1v-1.5L14 19v-5.5l8 2.5z"></path></svg>
+              </div>
+              <h2 class="card-title">Airlines and Ground Operations</h2>
+              <p class="card-desc">PathVision supports monitoring of ground vehicle movement and operator behavior in airport environments.</p>
+              <button class="expand-btn">View Capabilities <span class="expand-icon">▼</span></button>
+              <div class="card-details">
+                <ul>
+                  <li>Apron & ground vehicle movement compliance tracking</li>
+                  <li>Operator distraction & speed violation alerts</li>
+                  <li>Zero-data-leakage logs for airport operations</li>
+                </ul>
+              </div>
+              <div class="card-specs" style="margin-top:16px;">
+                <span class="spec-pill">Risk Focus: Ground Control</span>
+                <span class="spec-pill">Safety: Apron Operations</span>
               </div>
             </div>
           </div>
 
           <div class="filter-item industries">
             <div class="interactive-card tilt-target">
-              <div class="card-icon-wrapper">📦</div>
-              <h2 class="card-title">Logistics & Supply Chain</h2>
-              <p class="card-desc">Serving long-haul fleet operators and 3PL providers who need to reduce insurance
-                premiums, cut fuel consumption, and ensure drivers complete multi-day routes safely.</p>
-              <div class="card-specs">
-                <span class="spec-pill">Goal: OPEX Reduction</span>
-                <span class="spec-pill">Deployment: Retrofit Kits</span>
+              <div class="card-icon-wrapper">
+                <svg viewBox="0 0 24 24"><polyline points="21 8 21 21 3 21 3 8"></polyline><rect x="1" y="3" width="22" height="5"></rect><line x1="10" y1="12" x2="14" y2="12"></line></svg>
+              </div>
+              <h2 class="card-title">Logistics and Supply Chain</h2>
+              <p class="card-desc">PathVision improves fleet visibility and driver monitoring, enabling better operational control and incident awareness.</p>
+              <button class="expand-btn">View Capabilities <span class="expand-icon">▼</span></button>
+              <div class="card-details">
+                <ul>
+                  <li>Continuous driver attentiveness tracking</li>
+                  <li>Real-time telemetry event streaming</li>
+                  <li>Fleet-wide safety metrics dashboard</li>
+                </ul>
+              </div>
+              <div class="card-specs" style="margin-top:16px;">
+                <span class="spec-pill">Value: Operational Control</span>
+                <span class="spec-pill">Focus: Visibility</span>
               </div>
             </div>
           </div>
 
           <div class="filter-item industries">
             <div class="interactive-card tilt-target">
-              <div class="card-icon-wrapper">🏛️</div>
+              <div class="card-icon-wrapper">
+                <svg viewBox="0 0 24 24"><path d="M4 22V10l8-7 8 7v12H4z"></path><path d="M9 22V12h6v10"></path></svg>
+              </div>
               <h2 class="card-title">State Public Transport</h2>
-              <p class="card-desc">Partnering with State Road Transport Corporations (SRTCs) to deploy scalable,
-                government-compliant safety layers across thousands of publicly operated buses.</p>
-              <div class="card-specs">
-                <span class="spec-pill">Goal: Passenger Safety Standard</span>
-                <span class="spec-pill">Deployment: Fleet-Wide Integration</span>
+              <p class="card-desc">PathVision enhances safety in public transport systems by monitoring driver behavior and detecting road-level risks.</p>
+              <button class="expand-btn">View Capabilities <span class="expand-icon">▼</span></button>
+              <div class="card-details">
+                <ul>
+                  <li>Driver behavior profiling & logging</li>
+                  <li>Active collision risk alert system</li>
+                  <li>Scalable government-compliant integrations</li>
+                </ul>
+              </div>
+              <div class="card-specs" style="margin-top:16px;">
+                <span class="spec-pill">Value: Public Safety</span>
+                <span class="spec-pill">Focus: Compliance</span>
               </div>
             </div>
           </div>
 
           <div class="filter-item industries">
             <div class="interactive-card tilt-target">
-              <div class="card-icon-wrapper">⛏️</div>
-              <h2 class="card-title">Mining & Infrastructure</h2>
-              <p class="card-desc">Deploying ruggedized AI systems for contractors managing closed-loop mining and
-                massive infrastructure projects where equipment downtime costs thousands per hour.</p>
-              <div class="card-specs">
-                <span class="spec-pill">Goal: Zero-Incident Work Sites</span>
-                <span class="spec-pill">Deployment: Ruggedized Edge AI</span>
+              <div class="card-icon-wrapper">
+                <svg viewBox="0 0 24 24"><path d="M21 16c0-2-2-4-5-4s-5 2-5 4s2 4 5 4s5-2 5-4z"></path><path d="M3 20h8M3 16h4M3 12h2"></path></svg>
+              </div>
+              <h2 class="card-title">Mining and Infrastructure</h2>
+              <p class="card-desc">PathVision focuses on urban road infrastructure, including potholes, speed breakers, and irregular driving conditions.</p>
+              <button class="expand-btn">View Capabilities <span class="expand-icon">▼</span></button>
+              <div class="card-details">
+                <ul>
+                  <li>Real-time road surface damage detection</li>
+                  <li>Speed breaker sizing & proximity warnings</li>
+                  <li>Infrastructure condition logs & maps</li>
+                </ul>
+              </div>
+              <div class="card-specs" style="margin-top:16px;">
+                <span class="spec-pill">Value: Road Monitoring</span>
+                <span class="spec-pill">Focus: Infrastructure</span>
               </div>
             </div>
           </div>
 
           <div class="filter-item industries">
             <div class="interactive-card tilt-target">
-              <div class="card-icon-wrapper">🏭</div>
+              <div class="card-icon-wrapper">
+                <svg viewBox="0 0 24 24"><path d="M22 21H2V3l7 4l7-4l6 4v14z"></path><line x1="12" y1="11" x2="12" y2="16"></line><line x1="7" y1="13" x2="7" y2="16"></line><line x1="17" y1="13" x2="17" y2="16"></line></svg>
+              </div>
               <h2 class="card-title">Commercial Vehicle OEMs</h2>
-              <p class="card-desc">Working directly with heavy vehicle manufacturers to embed our natively trained
-                Indian-road AI directly into the vehicle's electrical architecture at the factory level.</p>
-              <div class="card-specs">
-                <span class="spec-pill">Goal: Native Smart Vehicles</span>
-                <span class="spec-pill">Deployment: Software SDK Integration</span>
+              <p class="card-desc">PathVision provides hardware-based intelligent monitoring solutions designed for heavy vehicles and is not an OEM-level ADAS software system.</p>
+              <button class="expand-btn">View Capabilities <span class="expand-icon">▼</span></button>
+              <div class="card-details">
+                <ul>
+                  <li>Independent hardware-level safety sensor layer</li>
+                  <li>Robust standalone processing for edge alerts</li>
+                  <li>Direct wiring harness support & vehicle integration</li>
+                </ul>
+              </div>
+              <div class="card-specs" style="margin-top:16px;">
+                <span class="spec-pill">Value: Hardware Solution</span>
+                <span class="spec-pill">Focus: Monitoring</span>
               </div>
             </div>
           </div>
 
+          <div class="filter-item industries">
+            <div class="interactive-card tilt-target">
+              <div class="card-icon-wrapper">
+                <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+              </div>
+              <h2 class="card-title">Personal Vehicle Owners</h2>
+              <p class="card-desc">PathVision can be adapted for individual users seeking enhanced driving awareness, safety alerts, and monitoring capabilities.</p>
+              <button class="expand-btn">View Capabilities <span class="expand-icon">▼</span></button>
+              <div class="card-details">
+                <ul>
+                  <li>Modular driving awareness notifications</li>
+                  <li>Self-installed safety alarm systems</li>
+                  <li>Local mobile app integration for safety stats</li>
+                </ul>
+              </div>
+              <div class="card-specs" style="margin-top:16px;">
+                <span class="spec-pill">Value: Personal Safety</span>
+                <span class="spec-pill">Focus: Driver Alerting</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    <!-- ── INTERACTIVE WORKFLOW SECTION ── -->
+    <section class="workflow-section reveal">
+      <div class="container">
+        <div class="eyebrow centered">OPERATIONAL PIPELINE</div>
+        <h2 class="section-title">INTELLIGENT <span class="gold-text">WORKFLOW</span></h2>
+        
+        <div class="workflow-stepper">
+          <div class="step-node active" data-step="0">
+            <svg viewBox="0 0 24 24"><path d="M23 7l-7 5 7 5V7z"></path><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+            <span class="step-lbl">Capture</span>
+          </div>
+          <div class="step-node" data-step="1">
+            <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"></rect><rect x="9" y="9" width="6" height="6"></rect><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 15h3M1 9h3M1 15h3"></path></svg>
+            <span class="step-lbl">Process</span>
+          </div>
+          <div class="step-node" data-step="2">
+            <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+            <span class="step-lbl">Alert</span>
+          </div>
+          <div class="step-node" data-step="3">
+            <svg viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>
+            <span class="step-lbl">Sync</span>
+          </div>
+          <div class="step-node" data-step="4">
+            <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+            <span class="step-lbl">Dashboard</span>
+          </div>
+        </div>
+
+        <div class="workflow-details-box" id="wf-details-box">
+          <div class="wf-icon-large" id="wf-detail-icon"><svg viewBox="0 0 24 24"><path d="M23 7l-7 5 7 5V7z"></path><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg></div>
+          <h3 class="wf-title" id="wf-detail-title">Video & Data Capture</h3>
+          <p class="wf-desc" id="wf-detail-desc">High-definition optical cameras continuously capture video feeds of the operator's cabin and the forward road surface. No facial profiles or personal identifiers are stored locally, preserving user privacy.</p>
         </div>
       </div>
     </section>
 
+
   </main>
 
   <footer>
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <div class="brand">PATHVISION</div>
-          <div class="sub">INNOVATIONS PVT. LTD.</div>
-          <p>AI-powered safety and intelligence for India's 5M+ heavy vehicles. Making every road journey safer.</p>
-        </div>
-        <div class="footer-col">
-          <h4>Solutions</h4>
-          <ul>
-            <li><a href="retrofittable.html">Retrofittable Systems</a></li>
-            <li><a href="oem.html">OEM Integration</a></li>
-            <li><a href="decarbonization.html">Decarbonization Suite</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>Company</h4>
-          <ul>
-            <li><a href="company.html">About Us</a></li>
-            <li><a href="technology.html">Technology</a></li>
-            <li><a href="industries.html" style="color:var(--white);">Industries</a></li>
-            <li><a href="careers.html">Careers</a></li>
-          </ul>
-        </div>
-        <div class="footer-col footer-contact">
-          <h4>Contact</h4>
-          <p style="display:flex; gap:8px; align-items:center;">
-            <svg class="gold-svg" style="width:14px;height:14px;flex-shrink:0;" viewBox="0 0 24 24">
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-              <polyline points="22,6 12,13 2,6" />
-            </svg>
-            <a href="mailto:office@pathvision.in">office@pathvision.in</a>
-          </p>
-          <p style="display:flex; gap:8px; align-items:center; margin-top:8px;">
-            <svg class="gold-svg" style="width:14px;height:14px;flex-shrink:0;" viewBox="0 0 24 24">
-              <path
-                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-            </svg>
-            +91 6305 899 404
-          </p>
-          <p style="display:flex; gap:8px; align-items:flex-start; margin-top:8px; margin-bottom:20px;">
-            <svg class="gold-svg" style="width:14px;height:14px;flex-shrink:0;margin-top:4px;" viewBox="0 0 24 24">
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 0-18 0z" />
-              <circle cx="12" cy="10" r="3" />
-            </svg>
-            <span>Proddatur, Andhra Pradesh</span>
-          </p>
-          <a href="contact.html" class="btn btn-outline"
-            style="font-size:12px;padding:10px 20px; margin-top: 10px;">Schedule a Demo</a>
-        </div>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="brand">PATHVISION</div>
+        <div class="sub">INNOVATIONS PVT. LTD.</div>
+        <p>Aims to deliver AI-powered safety and intelligence for India's 5M+ heavy vehicles. Making every road journey safer.</p>
       </div>
-      <div class="footer-bottom">
-        <p>© 2026 PathVision Innovations Pvt. Ltd. All rights reserved.</p>
-        <p>Made in India 🇮🇳</p>
+      <div class="footer-col">
+        <h4>Solutions</h4>
+        <ul>
+          <li><a href="/retrofittable">Retrofittable Systems</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/company">About Us</a></li>
+          <li><a href="/technology">Technology</a></li>
+          <li><a href="/industries">Industries</a></li>
+          <li><a href="/career">Careers</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:office@pathvision.in">office@pathvision.in</a></li>
+          <li><a href="tel:+916305899404">+91 6305 899 404</a></li>
+          <li>Proddatur, Andhra Pradesh</li>
+          <li><a href="/contact">Schedule a Demo</a></li>
+        </ul>
       </div>
     </div>
-  </footer>
+    <div class="footer-bottom">
+      <p>© 2026 PathVision Innovations Pvt. Ltd. All rights reserved.</p>
+      <p>Made in India 🇮🇳</p>
+    </div>
+  </div>
+</footer>
 
   <script>
     // ── NAVBAR LOGIC ──
@@ -1184,11 +1574,14 @@
 
     const solBtn = document.getElementById('mobile-solutions-btn');
     const solContent = document.getElementById('mobile-solutions-content');
-    solBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      solBtn.classList.toggle('open');
-      solContent.classList.toggle('expanded');
-    });
+
+    if (solBtn && solContent) {
+      solBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        solBtn.classList.toggle('open');
+        solContent.classList.toggle('expanded');
+      });
+    }
 
     // ── INTERACTIVE FILTER LOGIC ──
     const btns = document.querySelectorAll('.toggle-btn');
@@ -1276,6 +1669,80 @@
       }
     });
 
+    // ── EXPANDABLE CARDS LOGIC ──
+    document.querySelectorAll('.expand-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const card = btn.closest('.interactive-card');
+        const details = card.querySelector('.card-details');
+        const isCurrentlyActive = details.classList.contains('active');
+        
+        details.classList.toggle('active', !isCurrentlyActive);
+        btn.classList.toggle('active', !isCurrentlyActive);
+        
+        if (isCurrentlyActive) {
+          btn.innerHTML = `View Capabilities <span class="expand-icon">▼</span>`;
+        } else {
+          btn.innerHTML = `Hide Capabilities <span class="expand-icon">▲</span>`;
+        }
+      });
+    });
+
+    // ── INTERACTIVE WORKFLOW DATA ──
+    const workflowSteps = [
+      {
+        icon: `<svg viewBox="0 0 24 24"><path d="M23 7l-7 5 7 5V7z"></path><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>`,
+        title: "Video & Data Capture",
+        desc: "High-definition optical cameras continuously capture video feeds of the operator's cabin and the forward road surface. No facial profiles or personal identifiers are stored locally, preserving user privacy."
+      },
+      {
+        icon: `<svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"></rect><rect x="9" y="9" width="6" height="6"></rect><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 15h3M1 9h3M1 15h3"></path></svg>`,
+        title: "Edge AI Processing",
+        desc: "The on-vehicle Edge unit processes millions of incoming pixels in real time using our custom AI model, running inference on a neural processing unit (NPU) without cloud latency."
+      },
+      {
+        icon: `<svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>`,
+        title: "Real-Time Alert",
+        desc: "Upon detection of fatigue, distraction, or potential road hazards, the system generates direct, low-latency audio-visual warnings to alert the operator in less than 200ms."
+      },
+      {
+        icon: `<svg viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>`,
+        title: "Secure Cloud Sync",
+        desc: "High-severity threat logs and telemetry payload packets are formatted, AES-256-GCM encrypted, and safely synced to the secure telemetry pipeline once cellular connectivity is established."
+      },
+      {
+        icon: `<svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>`,
+        title: "Web App Dashboard",
+        desc: "Fleet managers and planners can view real-time fleet behavior stats, custom safety scoring models, and localized infrastructure hazard logs on the web console."
+      }
+    ];
+
+    const stepNodes = document.querySelectorAll('.step-node');
+    const wfIcon = document.getElementById('wf-detail-icon');
+    const wfTitle = document.getElementById('wf-detail-title');
+    const wfDesc = document.getElementById('wf-detail-desc');
+
+    stepNodes.forEach(node => {
+      node.addEventListener('click', () => {
+        stepNodes.forEach(n => n.classList.remove('active'));
+        node.classList.add('active');
+
+        const index = parseInt(node.getAttribute('data-step'));
+        const step = workflowSteps[index];
+
+        const detailBox = document.getElementById('wf-details-box');
+        detailBox.style.opacity = 0;
+        setTimeout(() => {
+          wfIcon.innerHTML = step.icon;
+          wfTitle.textContent = step.title;
+          wfDesc.textContent = step.desc;
+          detailBox.style.opacity = 1;
+        }, 150);
+      });
+    });
+
+
+
     // Initial Scroll Reveal
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -1286,6 +1753,29 @@
       });
     }, { threshold: 0.1 });
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+  </script>  <script>
+    // Clean URL Compatibility Router
+    (function() {
+      const isLocalFile = window.location.protocol === 'file:';
+      const isLocalDevServer = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') && window.location.port !== '8081';
+      
+      if (isLocalFile || isLocalDevServer) {
+        document.querySelectorAll('a[href]').forEach(link => {
+          let href = link.getAttribute('href');
+          if (href && href.startsWith('/') && !href.startsWith('//')) {
+            let cleanPath = href.substring(1);
+            if (cleanPath === '') {
+              link.setAttribute('href', isLocalFile ? 'index.html' : './');
+            } else {
+              let parts = cleanPath.split('#');
+              let page = parts[0];
+              let hash = parts[1] ? '#' + parts[1] : '';
+              link.setAttribute('href', page + '.html' + hash);
+            }
+          }
+        });
+      }
+    })();
   </script>
 </body>
 
